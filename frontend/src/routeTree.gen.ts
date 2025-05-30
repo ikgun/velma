@@ -12,7 +12,12 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as DemoClerkImport } from './routes/demo.clerk'
+import { Route as ProductsIndexImport } from './routes/products/index'
+import { Route as LogsIndexImport } from './routes/logs/index'
+import { Route as ProductsNewImport } from './routes/products/new'
+import { Route as ProductsProductIdImport } from './routes/products/$productId'
+import { Route as LogsNewImport } from './routes/logs/new'
+import { Route as LogsLogIdImport } from './routes/logs/$logId'
 
 // Create/Update Routes
 
@@ -22,9 +27,39 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DemoClerkRoute = DemoClerkImport.update({
-  id: '/demo/clerk',
-  path: '/demo/clerk',
+const ProductsIndexRoute = ProductsIndexImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LogsIndexRoute = LogsIndexImport.update({
+  id: '/logs/',
+  path: '/logs/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProductsNewRoute = ProductsNewImport.update({
+  id: '/products/new',
+  path: '/products/new',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProductsProductIdRoute = ProductsProductIdImport.update({
+  id: '/products/$productId',
+  path: '/products/$productId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LogsNewRoute = LogsNewImport.update({
+  id: '/logs/new',
+  path: '/logs/new',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LogsLogIdRoute = LogsLogIdImport.update({
+  id: '/logs/$logId',
+  path: '/logs/$logId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +74,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/demo/clerk': {
-      id: '/demo/clerk'
-      path: '/demo/clerk'
-      fullPath: '/demo/clerk'
-      preLoaderRoute: typeof DemoClerkImport
+    '/logs/$logId': {
+      id: '/logs/$logId'
+      path: '/logs/$logId'
+      fullPath: '/logs/$logId'
+      preLoaderRoute: typeof LogsLogIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/logs/new': {
+      id: '/logs/new'
+      path: '/logs/new'
+      fullPath: '/logs/new'
+      preLoaderRoute: typeof LogsNewImport
+      parentRoute: typeof rootRoute
+    }
+    '/products/$productId': {
+      id: '/products/$productId'
+      path: '/products/$productId'
+      fullPath: '/products/$productId'
+      preLoaderRoute: typeof ProductsProductIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/products/new': {
+      id: '/products/new'
+      path: '/products/new'
+      fullPath: '/products/new'
+      preLoaderRoute: typeof ProductsNewImport
+      parentRoute: typeof rootRoute
+    }
+    '/logs/': {
+      id: '/logs/'
+      path: '/logs'
+      fullPath: '/logs'
+      preLoaderRoute: typeof LogsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +123,84 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/demo/clerk': typeof DemoClerkRoute
+  '/logs/$logId': typeof LogsLogIdRoute
+  '/logs/new': typeof LogsNewRoute
+  '/products/$productId': typeof ProductsProductIdRoute
+  '/products/new': typeof ProductsNewRoute
+  '/logs': typeof LogsIndexRoute
+  '/products': typeof ProductsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/demo/clerk': typeof DemoClerkRoute
+  '/logs/$logId': typeof LogsLogIdRoute
+  '/logs/new': typeof LogsNewRoute
+  '/products/$productId': typeof ProductsProductIdRoute
+  '/products/new': typeof ProductsNewRoute
+  '/logs': typeof LogsIndexRoute
+  '/products': typeof ProductsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/demo/clerk': typeof DemoClerkRoute
+  '/logs/$logId': typeof LogsLogIdRoute
+  '/logs/new': typeof LogsNewRoute
+  '/products/$productId': typeof ProductsProductIdRoute
+  '/products/new': typeof ProductsNewRoute
+  '/logs/': typeof LogsIndexRoute
+  '/products/': typeof ProductsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/clerk'
+  fullPaths:
+    | '/'
+    | '/logs/$logId'
+    | '/logs/new'
+    | '/products/$productId'
+    | '/products/new'
+    | '/logs'
+    | '/products'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/clerk'
-  id: '__root__' | '/' | '/demo/clerk'
+  to:
+    | '/'
+    | '/logs/$logId'
+    | '/logs/new'
+    | '/products/$productId'
+    | '/products/new'
+    | '/logs'
+    | '/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/logs/$logId'
+    | '/logs/new'
+    | '/products/$productId'
+    | '/products/new'
+    | '/logs/'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DemoClerkRoute: typeof DemoClerkRoute
+  LogsLogIdRoute: typeof LogsLogIdRoute
+  LogsNewRoute: typeof LogsNewRoute
+  ProductsProductIdRoute: typeof ProductsProductIdRoute
+  ProductsNewRoute: typeof ProductsNewRoute
+  LogsIndexRoute: typeof LogsIndexRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoClerkRoute: DemoClerkRoute,
+  LogsLogIdRoute: LogsLogIdRoute,
+  LogsNewRoute: LogsNewRoute,
+  ProductsProductIdRoute: ProductsProductIdRoute,
+  ProductsNewRoute: ProductsNewRoute,
+  LogsIndexRoute: LogsIndexRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +214,34 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/demo/clerk"
+        "/logs/$logId",
+        "/logs/new",
+        "/products/$productId",
+        "/products/new",
+        "/logs/",
+        "/products/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/demo/clerk": {
-      "filePath": "demo.clerk.tsx"
+    "/logs/$logId": {
+      "filePath": "logs/$logId.tsx"
+    },
+    "/logs/new": {
+      "filePath": "logs/new.tsx"
+    },
+    "/products/$productId": {
+      "filePath": "products/$productId.tsx"
+    },
+    "/products/new": {
+      "filePath": "products/new.tsx"
+    },
+    "/logs/": {
+      "filePath": "logs/index.tsx"
+    },
+    "/products/": {
+      "filePath": "products/index.tsx"
     }
   }
 }

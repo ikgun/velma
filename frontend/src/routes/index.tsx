@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  const { isSignedIn, user, isLoaded } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
   }
