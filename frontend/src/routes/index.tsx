@@ -7,6 +7,15 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
+  const { isSignedIn, user, isLoaded } = useUser()
+  if (!isLoaded) {
+    return <div className="p-4">Loading...</div>
+  }
+
+  if (!isSignedIn) {
+    return <div className="p-4">Youre viewing the unsigned version</div>
+  }
+
   return (
     <div className="text-center">
       <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
