@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DashboardImport } from './routes/dashboard'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProductsIndexImport } from './routes/products/index'
 import { Route as LogsIndexImport } from './routes/logs/index'
@@ -20,6 +21,12 @@ import { Route as LogsNewImport } from './routes/logs/new'
 import { Route as LogsLogIdImport } from './routes/logs/$logId'
 
 // Create/Update Routes
+
+const DashboardRoute = DashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
     '/logs/$logId': {
       id: '/logs/$logId'
       path: '/logs/$logId'
@@ -123,6 +137,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/logs/$logId': typeof LogsLogIdRoute
   '/logs/new': typeof LogsNewRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -133,6 +148,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/logs/$logId': typeof LogsLogIdRoute
   '/logs/new': typeof LogsNewRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -144,6 +160,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
   '/logs/$logId': typeof LogsLogIdRoute
   '/logs/new': typeof LogsNewRoute
   '/products/$productId': typeof ProductsProductIdRoute
@@ -156,6 +173,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dashboard'
     | '/logs/$logId'
     | '/logs/new'
     | '/products/$productId'
@@ -165,6 +183,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard'
     | '/logs/$logId'
     | '/logs/new'
     | '/products/$productId'
@@ -174,6 +193,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/dashboard'
     | '/logs/$logId'
     | '/logs/new'
     | '/products/$productId'
@@ -185,6 +205,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
   LogsLogIdRoute: typeof LogsLogIdRoute
   LogsNewRoute: typeof LogsNewRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
@@ -195,6 +216,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
   LogsLogIdRoute: LogsLogIdRoute,
   LogsNewRoute: LogsNewRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,
@@ -214,6 +236,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/dashboard",
         "/logs/$logId",
         "/logs/new",
         "/products/$productId",
@@ -224,6 +247,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/dashboard": {
+      "filePath": "dashboard.tsx"
     },
     "/logs/$logId": {
       "filePath": "logs/$logId.tsx"

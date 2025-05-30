@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useUser } from '@clerk/clerk-react'
-import Dashboard from '@/components/Dashboard'
+import { useEffect } from 'react'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -15,10 +15,9 @@ function App() {
   if (!isSignedIn) {
     return <div className="p-4">Youre viewing the unsigned version</div>
   }
+  const navigate = useNavigate()
 
-  return (
-    <>
-      <Dashboard />
-    </>
-  )
+  useEffect(() => {
+    navigate({ to: '/dashboard' })
+  }, [navigate])
 }
