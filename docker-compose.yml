@@ -1,0 +1,39 @@
+services:
+  velma-postgres:
+    image: 'postgres:15'
+    container_name: 'velma-postgres'
+    environment:
+      - POSTGRES_USER=velma
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=velmadb
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+  velma-backend:
+    build: ./backend/Dockerfile
+    image: velma-backend
+    container_name: velma-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/usr/local/app
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - velma-postgres
+    restart: on-failure
+
+  velma-frontend:
+    build: ./frontend/Dockerfile
+    container_name: velma-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+    depends_on:
+      - velma-backend
+    restart: on-failure
+
