@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
+import { useUser } from '@clerk/clerk-react'
+import Dashboard from '@/components/Dashboard'
 
 export const Route = createFileRoute('/')({
   component: App,
