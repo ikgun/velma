@@ -1,0 +1,33 @@
+#debug: true
+#server:
+#  port: 3001
+
+spring:
+  application:
+    name: Velma
+  datasource:
+    url: jdbc:postgresql://localhost:5432/velmadb
+    username: velma
+    password: secret
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    #    properties:
+    #      hibernate:
+    #        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      platform: postgresql
+      mode: never
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
