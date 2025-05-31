@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 public class LogController {
 
-    public static final String API_CONTEXT_ROOT = "/api/log";
+    public static final String API_CONTEXT_ROOT = "/api/logs";
 
     private final LogService logService;
 
