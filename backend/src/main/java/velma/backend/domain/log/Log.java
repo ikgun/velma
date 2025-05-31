@@ -29,8 +29,8 @@ public class Log {
 
     private String notes;
 
-    @Column(nullable = false)
-    private Long userId;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
     public Log() {
     }
