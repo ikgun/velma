@@ -1,4 +1,5 @@
 export type Product = {
+  id: number
   name: string
   brand: string
   type: string
@@ -6,6 +7,7 @@ export type Product = {
 }
 
 export type Log = {
+  id: number
   dateTime: string
   routineType: string
   productsUsed: Array<Product>
