@@ -1,4 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { SignedIn, useUser } from '@clerk/clerk-react'
+import type { FormEvent } from 'react'
+import { useCreateProduct } from '@/hooks/product/useCreateProduct'
 
 export const Route = createFileRoute('/products/new')({
   component: AddProductFormPage,
@@ -10,6 +14,8 @@ function AddProductFormPage() {
   const [brand, setBrand] = useState('')
   const [type, setType] = useState('')
   const [expirationDate, setExpirationDate] = useState('') // store as string YYYY-MM-DD
+  const { mutate, isSuccess, error } = useCreateProduct()
+
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
   }
