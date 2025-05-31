@@ -33,7 +33,7 @@ public class LogController {
                 .toList();
 
         if (response.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No log found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No logs found.");
         }
 
         return ResponseEntity.ok(response);
