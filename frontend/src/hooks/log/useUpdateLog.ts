@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import { updateLog } from '../../apis/logApi'
-import type { Log } from '../../types'
+import type { Product } from '../../types'
 
 export function useUpdateLog() {
   const { getToken } = useAuth()
@@ -12,7 +12,12 @@ export function useUpdateLog() {
       requestBody,
     }: {
       id: string
-      requestBody: Log
+      requestBody: {
+        dateTime: string
+        routineType: string
+        productsUsed: Array<Product>
+        notes: string
+      }
     }) => {
       const token = await getToken()
       if (!token) {
