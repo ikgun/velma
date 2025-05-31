@@ -10,6 +10,7 @@ import velma.backend.domain.product.dtos.ProductRequestDto;
 import velma.backend.domain.product.dtos.ProductResponseDto;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class ProductController {
                 .toList();
 
         if (response.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
+            return ResponseEntity.ok(Collections.emptyList());
         }
 
         return ResponseEntity.ok(response);
