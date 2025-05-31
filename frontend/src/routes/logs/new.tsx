@@ -34,6 +34,24 @@ function AddLogFormPage() {
         : [...existingProducts, selectedProduct],
     )
   }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    mutate({ dateTime, routineType, productsUsed, notes })
+
+    if (isSuccess) {
+      setDateTime('')
+      setRoutineType('')
+      setProductsUsed([])
+      setNotes('')
+    }
+
+    if (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <SignedIn>
       <div>this is where add log form will go</div>
