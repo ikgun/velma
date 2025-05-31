@@ -64,7 +64,6 @@ public class LogController {
 //    }
 
     @PostMapping
-    public ResponseEntity<?> createLog(@RequestBody @Valid LogRequestDto dto){
     public ResponseEntity<?> createLog(
             @RequestBody @Valid LogRequestDto dto,
             Authentication auth){
