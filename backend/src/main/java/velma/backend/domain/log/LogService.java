@@ -49,12 +49,13 @@ public class LogService {
 //    }
 
 
-    public Log createLog(LocalDateTime dateTime, String routineType, List<Product> productsUsed, String notes) {
+    public Log createLog(LocalDateTime dateTime, String routineType, List<Product> productsUsed, String notes, String userId) {
         Log newLog = new Log();
         newLog.setDateTime(dateTime);
         newLog.setRoutineType(routineType);
         newLog.setProductsUsed(productsUsed);
         newLog.setNotes(notes);
+        newLog.setUserId(userId);
         repository.save(newLog);
         return newLog;
     }
