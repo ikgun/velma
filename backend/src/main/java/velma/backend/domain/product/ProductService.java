@@ -2,6 +2,8 @@ package velma.backend.domain.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import velma.backend.domain.log.Log;
+import velma.backend.domain.log.LogRepository;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -20,12 +22,12 @@ public class ProductService {
 
     public Product getById(Long productId) {
 
-        return repository.findById(productId)
+        return productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product with ID " + productId + " not found."));
     }
 
     public List<Product> listAll() {
-        return repository.findAll();
+        return productRepository.findAll();
     }
 
 //    public List<Log> listAllByQuery(String queryTerm) {
@@ -56,21 +58,21 @@ public class ProductService {
         newProduct.setType(type);
         newProduct.setExpirationDate(expirationDate);
         newProduct.setUserId(userId);
-        repository.save(newProduct);
+        productRepository.save(newProduct);
         return newProduct;
     }
 
     public Product updateProduct(Product product) {
 
-        Product updatedProduct = repository.findById(product.getId())
+        Product updatedProduct = productRepository.findById(product.getId())
                 .orElseThrow(() -> new NoSuchElementException("Product with ID " + product.getId() + " not found."));
 
-        repository.save(updatedProduct);
+        productRepository.save(updatedProduct);
         return updatedProduct;
     }
 
     public void deleteProduct(Long productId) {
-        repository.findById(productId)
+        Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product with ID " + productId + " not found."));
         repository.deleteById(productId);
     }
