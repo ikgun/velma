@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import { updateProduct } from '../../apis/productApi'
-import type { Product } from '../../types'
 
 export function useUpdateProduct() {
   const { getToken } = useAuth()
@@ -13,7 +12,7 @@ export function useUpdateProduct() {
       requestBody,
     }: {
       id: string
-      requestBody: Product
+      requestBody: {name: string, brand: string, type: string, expirationDate: string}
     }) => {
       const token = await getToken()
       if (!token) {
