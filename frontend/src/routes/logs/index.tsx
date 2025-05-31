@@ -1,12 +1,17 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { SignedIn, useUser } from '@clerk/clerk-react'
+import { useUser } from '@clerk/clerk-react'
+import type { Log } from '@/types'
+import { useGetAllLogs } from '@/hooks/log/useGetAllLogs'
+import LogCard from '@/components/LogCard'
 
 export const Route = createFileRoute('/logs/')({
   component: LogsPage,
 })
 
 function LogsPage() {
-   const { isSignedIn, isLoaded } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
+  const { data, isPending, error } = useGetAllLogs()
+
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
   }
