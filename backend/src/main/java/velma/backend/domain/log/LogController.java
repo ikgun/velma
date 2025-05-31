@@ -10,6 +10,7 @@ import velma.backend.domain.log.dtos.LogRequestDto;
 import velma.backend.domain.log.dtos.LogResponseDto;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class LogController {
                 .toList();
 
         if (response.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No logs found.");
+            return ResponseEntity.ok(Collections.emptyList());
         }
 
         return ResponseEntity.ok(response);
