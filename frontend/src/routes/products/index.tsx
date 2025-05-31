@@ -51,6 +51,20 @@ function ProductsPage() {
           <div className="text-center text-gray-400">No products found.</div>
         )}
 
+        {!isPending && !error && data?.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.map((product: Product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                brand={product.brand}
+                type={product.type}
+                expirationDate={product.expirationDate}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </SignedIn>
   )
