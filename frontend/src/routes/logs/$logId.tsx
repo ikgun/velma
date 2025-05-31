@@ -5,8 +5,6 @@ export const Route = createFileRoute('/logs/$logId')({
   component: LogPage,
 })
 
-function RouteComponent() {
-  return <div>Hello "/logs/$logId"!</div>
 function LogPage() {
   const { isSignedIn, isLoaded } = useUser()
   if (!isLoaded) {
