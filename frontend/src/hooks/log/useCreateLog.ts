@@ -14,6 +14,12 @@ export function useCreateLog() {
           }
           return createLog(requestBody, token)
         },
+      const token = await getToken()
+      if (!token) {
+        throw new Error('No token found. User might not be authenticated.')
+      }
+      return createLog(requestBody, token)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['logs'] })
     },
