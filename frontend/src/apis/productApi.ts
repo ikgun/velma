@@ -1,15 +1,31 @@
 const API_URL = 'http://localhost:8080/api/products'
 
 // GET request to /api/products
-export async function getAllProducts() {
-  const response = await fetch(API_URL)
+export async function getAllProducts(token: string) {
+  const response = await fetch(API_URL, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(errorText)
+  }
   const data = await response.json()
   return data
 }
 
 // GET request to /api/products/{id}
-export async function getProduct(id: string) {
-  const response = await fetch(`${API_URL}/${id}`)
+export async function getProduct(id: string, token: string) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
   const data = await response.json()
   return data
 }
@@ -67,8 +83,12 @@ export async function updateProduct(
 }
 
 // DELETE request to /api/products/{id}
-export async function deleteProduct(id: string) {
+export async function deleteProduct(id: number, token: string) {
   await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   })
 }
