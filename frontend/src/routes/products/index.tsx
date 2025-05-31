@@ -22,9 +22,13 @@ function ProductsPage() {
 
   return (
     <SignedIn>
-      <div>this is where all products are</div>
-      <div className="px-2 font-bold">
-        <Link to="/products/new">Add new product</Link>
+      <div className="max-w-7xl mx-auto px-4 py-10 space-y-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Your Products</h1>
+          <Link to="/products/new" className="text-blue-600 hover:underline font-medium">
+            Add new product
+          </Link>
+        </div>
 
         {isPending && (
           <div className="flex flex-col items-center justify-center min-h-[300px] text-gray-500">
