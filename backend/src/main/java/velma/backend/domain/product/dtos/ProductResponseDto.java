@@ -8,7 +8,7 @@ public record ProductResponseDto(Long id,
                                  String name,
                                  String brand,
                                  String type,
-                                 Long userId,
+                                 String userId,
                                  LocalDate expirationDate) {
 
     public static ProductResponseDto fromProduct(Product product) {

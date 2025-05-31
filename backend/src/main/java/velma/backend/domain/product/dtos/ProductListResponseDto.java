@@ -7,7 +7,7 @@ public record ProductListResponseDto(
         String name,
         String brand,
         String type,
-        Long userId,
+        String userId,
         LocalDate expirationDate
 ) {
 }
