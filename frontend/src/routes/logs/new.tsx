@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-checimport { SignedIn, useUser } from '@clerk/clerk-react'
+import { SignedIn, useUser } from '@clerk/clerk-react'
 
 export const Route = createFileRoute('/logs/new')({
   component: AddLogFormPage,
