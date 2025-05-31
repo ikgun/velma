@@ -1,5 +1,6 @@
 package velma.backend.domain.product.dtos;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
