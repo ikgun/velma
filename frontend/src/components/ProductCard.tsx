@@ -1,11 +1,4 @@
-export default function ProductCard(){
-    return(
-        <>
-        <div className="bg-red-300">
-            <p>product card</p>
-        </div>
-        </>
-    )
+import { Link } from '@tanstack/react-router'
 import type { Product as ProductCardProps } from '@/types'
 import type { FormEvent } from 'react'
 import { useDeleteProduct } from '@/hooks/product/useDeleteProduct'
@@ -34,6 +27,13 @@ export default function ProductCard({
         onSubmit={handleSubmit}
         className="pt-2 flex flex-col sm:flex-row gap-2 justify-center"
       >
+        <Link
+          to={'/products/$productId'}
+          params={{ productId: String(id) }}
+          className="text-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+        >
+          See more
+        </Link>
 
         <button
           type="submit"
