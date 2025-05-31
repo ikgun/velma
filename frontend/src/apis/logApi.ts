@@ -3,15 +3,27 @@ import type { Product } from '@/types'
 const API_URL = 'http://localhost:8080/api/logs'
 
 // GET request to /api/logs
-export async function getAllLogs() {
-  const response = await fetch(API_URL)
+export async function getAllLogs(token: string) {
+  const response = await fetch(API_URL, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
   const data = await response.json()
   return data
 }
 
 // GET request to /api/logs/{id}
-export async function getLog(id: string) {
-  const response = await fetch(`${API_URL}/${id}`)
+export async function getLog(id: string, token: string) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  })
   const data = await response.json()
   return data
 }
@@ -69,8 +81,11 @@ export async function updateLog(
 }
 
 // DELETE request to /api/logs/{id}
-export async function deleteLog(id: string) {
+export async function deleteLog(id: number, token: string) {
   await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
 }
