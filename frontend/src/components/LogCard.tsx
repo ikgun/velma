@@ -1,12 +1,8 @@
-export default function LogCard(){
-    return(
-        <>
-        <div className="bg-red-300">
-            <p>log card</p>
-        </div>
-        </>
-    )
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { Link } from '@tanstack/react-router'
 import type { Log, Product } from '@/types'
+import { useDeleteLog } from '@/hooks/log/useDeleteLog'
+
 export default function LogCard({
   id,
   dateTime,
@@ -14,4 +10,5 @@ export default function LogCard({
   productsUsed,
   routineType,
 }: Log) {
+  const mutation = useDeleteLog()
 }
