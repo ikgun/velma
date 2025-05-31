@@ -8,6 +8,8 @@ export const Route = createFileRoute('/')({
 
 function App() {
   const { isSignedIn, isLoaded } = useUser()
+  const navigate = useNavigate()
+
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
   }
@@ -15,9 +17,9 @@ function App() {
   if (!isSignedIn) {
     return <div className="p-4">Youre viewing the unsigned version</div>
   }
-  const navigate = useNavigate()
 
   useEffect(() => {
     navigate({ to: '/dashboard' })
   }, [navigate])
+ 
 }
