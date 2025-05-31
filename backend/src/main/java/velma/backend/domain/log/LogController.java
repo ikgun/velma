@@ -3,6 +3,7 @@ package velma.backend.domain.log;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import velma.backend.domain.log.dtos.LogListResponseDto;
 import velma.backend.domain.log.dtos.LogRequestDto;
@@ -64,8 +65,13 @@ public class LogController {
 
     @PostMapping
     public ResponseEntity<?> createLog(@RequestBody @Valid LogRequestDto dto){
+    public ResponseEntity<?> createLog(
+            @RequestBody @Valid LogRequestDto dto,
+            Authentication auth){
 
-        Log log = logService.createLog(dto.dateTime(), dto.routineType(), dto.productsUsed(), dto.notes());
+        String userId = auth.getName();
+
+        Log log = logService.createLog(dto.dateTime(), dto.routineType(), dto.productsUsed(), dto.notes(), userId);
 
         return ResponseEntity
                 .created(URI.create(API_CONTEXT_ROOT + "/" + log.getId()))
