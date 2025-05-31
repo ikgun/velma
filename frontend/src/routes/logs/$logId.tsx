@@ -44,6 +44,52 @@ function LogPage() {
   return (
     <SignedIn>
       <div>Hello "/logs/$logId"!</div>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-[#252422] mb-4">
+          {data.dateTime}
+        </h1>
+
+        <section className="mb-6">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            Products used
+          </h2>
+          {data.productsUsed && data.productsUsed.length > 0 ? (
+            <ul className="list-disc list-inside text-gray-600 text-sm">
+              {data.productsUsed.map((p: Product) => (
+                <li key={p.id}>{p.name.trim()}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-400 italic">
+              There are no products in this log!
+            </p>
+          )}
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            Routine type
+          </h2>
+          <p className="text-gray-600 text-sm ">{data.routineType}</p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            Notes
+          </h2>
+          <p className="text-gray-600 text-sm ">{!(data.notes) ? "Nothing here..." : data.notes}</p>
+        </section>
+
+        <button
+          className="mt-6 bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+          onClick={() => setShowEditLog(true)}
+          type="button"
+        >
+          Edit log
+        </button>
+
+        )}
+      </div>
     </SignedIn>
   )
 }
