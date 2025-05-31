@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 public class ProductController {
 
-    public static final String API_CONTEXT_ROOT = "/api/product";
+    public static final String API_CONTEXT_ROOT = "/api/products";
 
     private final ProductService productService;
 
@@ -33,7 +33,7 @@ public class ProductController {
                 .toList();
 
         if (response.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No product found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No products found.");
         }
 
         return ResponseEntity.ok(response);
