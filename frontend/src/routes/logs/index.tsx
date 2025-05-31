@@ -13,7 +13,7 @@ function LogsPage() {
   const { data, isPending, error } = useGetAllLogs()
 
   if (!isLoaded) {
-    return <div className="p-4">Loading...</div>
+    return <div className="p-4">Loading user...</div>
   }
 
   if (!isSignedIn) {
