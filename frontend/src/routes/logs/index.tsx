@@ -42,11 +42,33 @@ function LogsPage() {
   }
 
   return (
-    <SignedIn>
-      <div>this is where the log history is</div>
-      <div className="px-2 font-bold">
-        <Link to="/logs/new">Add new log</Link>
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Log History</h1>
+        <Link
+          to="/logs/new"
+          className="text-blue-500 hover:underline font-medium"
+        >
+          Add new log
+        </Link>
       </div>
-    </SignedIn>
+
+      {data && data.length === 0 ? (
+        <p className="text-center text-gray-400">No logs found.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 place-items-center">
+          {data?.map((log: Log) => (
+            <LogCard
+              key={log.id}
+              id={log.id}
+              dateTime={log.dateTime}
+              notes={log.notes}
+              productsUsed={log.productsUsed}
+              routineType={log.routineType}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
