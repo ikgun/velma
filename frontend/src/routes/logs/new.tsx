@@ -26,6 +26,14 @@ function AddLogFormPage() {
   if (!isSignedIn) {
     return <div className="p-4">Sign in to view this page</div>
   }
+
+  const toggleProduct = (selectedProduct: Product) => {
+    setProductsUsed((existingProducts) =>
+      existingProducts.includes(selectedProduct)
+        ? existingProducts.filter((each) => each.id !== each.id)
+        : [...existingProducts, selectedProduct],
+    )
+  }
   return (
     <SignedIn>
       <div>this is where add log form will go</div>
