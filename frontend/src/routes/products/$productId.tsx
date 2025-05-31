@@ -8,6 +8,7 @@ export const Route = createFileRoute('/products/$productId')({
 function ProductPage() {
   // const { productId } = useParams({ from: '/products/$productId'});
    const { isSignedIn, isLoaded } = useUser()
+  const { productId } = useParams({ from: '/products/$productId' })
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
   }
