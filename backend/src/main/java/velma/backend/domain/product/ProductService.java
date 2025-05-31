@@ -9,11 +9,13 @@ import java.util.*;
 @Service
 public class ProductService {
 
-    private final ProductRepository repository;
+    private final ProductRepository productRepository;
+    private final LogRepository logRepository;
 
     @Autowired
-    public ProductService(ProductRepository repository) {
-        this.repository = repository;
+    public ProductService(ProductRepository productRepository, LogRepository logRepository) {
+        this.productRepository = productRepository;
+        this.logRepository = logRepository;
     }
 
     public Product getById(Long productId) {
