@@ -74,7 +74,13 @@ public class ProductService {
     public void deleteProduct(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product with ID " + productId + " not found."));
-        repository.deleteById(productId);
+        // Pseudocode
+        List<Log> logsContainingProduct = logRepository.findLogsByProductsUsedContaining(List.of(product));
+        for (Log log : logsContainingProduct) {
+            log.getProductsUsed().remove(product);
+            logRepository.save(log);
+        }
+        productRepository.deleteById(productId);
     }
 
 }
