@@ -16,8 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain defaultChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/products").authenticated()
-                        .requestMatchers("/api/logs").authenticated()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .cors(withDefaults())
