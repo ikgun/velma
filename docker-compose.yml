@@ -1,11 +1,13 @@
+
+
 services:
   velma-postgres:
     image: 'postgres:15'
     container_name: 'velma-postgres'
     environment:
-      - POSTGRES_USER=velma
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=velmadb
+      POSTGRES_USER: velma
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: velmadb
     volumes:
       - ./data/pgdata:/var/lib/postgresql/data
     ports:
@@ -13,27 +15,35 @@ services:
     restart: always
 
   velma-backend:
-    build: ./backend/Dockerfile
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: velma-backend
     container_name: velma-backend
     ports:
       - "8080:8080"
     volumes:
-      - ./:/usr/local/app
+      - ./backend:/usr/local/app
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://velma-postgres:5432/velmadb
+      - SPRING_DATASOURCE_USERNAME=velma
+      - SPRING_DATASOURCE_PASSWORD=secret
     depends_on:
       - velma-postgres
     restart: on-failure
 
   velma-frontend:
-    build: ./frontend/Dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: velma-frontend
     container_name: velma-frontend
     ports:
       - "3000:3000"
     volumes:
-      - /app/node_modules
+      - ./frontend:/app
+      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
     depends_on:
       - velma-backend
     restart: on-failure
-
