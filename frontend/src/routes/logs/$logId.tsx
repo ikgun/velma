@@ -43,7 +43,6 @@ function LogPage() {
 
   return (
     <SignedIn>
-      <div>Hello "/logs/$logId"!</div>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-[#252422] mb-4">
           {data.dateTime}
@@ -88,6 +87,15 @@ function LogPage() {
           Edit log
         </button>
 
+        {showEditLog && (
+          <EditLogModal
+            id={logId}
+            oldDateTime={data.dateTime}
+            oldRoutineType={data.routineType}
+            oldProductsUsed={data.productsUsed}
+            oldNotes={data.notes}
+            onClose={() => setShowEditLog(false)}
+          />
         )}
       </div>
     </SignedIn>
