@@ -14,10 +14,8 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String brand;
 
-    @Column(nullable = false)
     private String type; // e.g., cleanser, toner, serum
 
 //    private String ingredients; // optionally a JSON string or comma-separated list
@@ -27,8 +25,7 @@ public class Product {
 
     @Column(name = "user_id", nullable = false)
     private String userId;
-
-    @Column(nullable = false)
+    
     private LocalDate expirationDate;
 
     public Product() {
