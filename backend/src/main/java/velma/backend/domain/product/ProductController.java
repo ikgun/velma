@@ -3,6 +3,7 @@ package velma.backend.domain.product;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import velma.backend.domain.product.dtos.ProductListResponseDto;
 import velma.backend.domain.product.dtos.ProductRequestDto;
@@ -63,9 +64,13 @@ public class ProductController {
 //    }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody @Valid ProductRequestDto dto){
+    public ResponseEntity<?> createProduct(
+            @RequestBody @Valid ProductRequestDto dto,
+            Authentication auth) {
 
-        Product product = productService.createProduct(dto.name(), dto.brand(), dto.type(), dto.expirationDate());
+        String userId = auth.getName();
+
+        Product product = productService.createProduct(dto.name(), dto.brand(), dto.type(), dto.expirationDate(), userId);
 
         return ResponseEntity
                 .created(URI.create(API_CONTEXT_ROOT + "/" + product.getId()))
