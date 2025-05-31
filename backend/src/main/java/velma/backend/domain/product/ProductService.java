@@ -47,12 +47,13 @@ public class ProductService {
 //    }
 
 
-    public Product createProduct(String name, String brand, String type, LocalDate expirationDate) {
+    public Product createProduct(String name, String brand, String type, LocalDate expirationDate, String userId) {
         Product newProduct = new Product();
         newProduct.setName(name);
         newProduct.setBrand(brand);
         newProduct.setType(type);
         newProduct.setExpirationDate(expirationDate);
+        newProduct.setUserId(userId);
         repository.save(newProduct);
         return newProduct;
     }
