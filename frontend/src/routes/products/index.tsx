@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
+import { useGetAllProducts } from '@/hooks/product/useGetAllProducts'
 
 export const Route = createFileRoute('/products/')({
   component: ProductsPage,
@@ -8,6 +9,8 @@ export const Route = createFileRoute('/products/')({
 function ProductsPage() {
    const { isSignedIn, isLoaded } = useUser()
   const { isSignedIn, isLoaded } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
+  const { data, isPending, error } = useGetAllProducts()
 
   if (!isLoaded) {
     return <div className="p-4">Loading user...</div>
