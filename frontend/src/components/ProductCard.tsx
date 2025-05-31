@@ -6,4 +6,11 @@ export default function ProductCard(){
         </div>
         </>
     )
+import type { Product as ProductCardProps } from '@/types'
+  id,
+  name,
+  brand,
+  type,
+  expirationDate,
+}: ProductCardProps) {
 }
