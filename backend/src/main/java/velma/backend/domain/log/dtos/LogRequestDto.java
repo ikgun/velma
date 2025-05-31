@@ -10,7 +10,7 @@ import java.util.List;
 public record LogRequestDto(
         @NotNull LocalDateTime dateTime,
         @NotNull String routineType,
-        @NotNull List<Product> productsUsed,
+        @Nullable List<Product> productsUsed,
         @Nullable String notes
 ) {
 }
