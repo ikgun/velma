@@ -43,6 +43,36 @@ function ProductPage() {
   return (
     <SignedIn>
       <div>Hello "/products/$productId"!</div>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-[#252422] mb-4">{data.name}</h1>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">Brand</h2>
+          <p className="text-gray-600 text-sm ">{!(data.brand) ? "Brand not specified" : data.brand}</p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">Type</h2>
+          <p className="text-gray-600 text-sm ">{!(data.type) ? "Type not specified" : data.type}</p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">
+            Expiration date
+          </h2>
+          <p className="text-gray-600 text-sm ">{!(data.expirationDate) ? "Expiration date not specified" : data.expirationDate}</p>
+        </section>
+
+        <button
+          className="mt-6 bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+          onClick={() => setShowEditProduct(true)}
+          type="button"
+        >
+          Edit product
+        </button>
+
+        )}
+      </div>
     </SignedIn>
   )
 }
