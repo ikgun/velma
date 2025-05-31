@@ -19,6 +19,28 @@ function LogsPage() {
   if (!isSignedIn) {
     return <div className="p-4">Sign in to view this page</div>
   }
+
+  if (isPending) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-gray-300 px-4">
+        <p className="text-lg mb-4">Loading logs...</p>
+        <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-gray-300 px-4 text-center">
+        <p className="text-lg mb-4">
+          {error.message === 'Failed to fetch'
+            ? 'Failed to fetch logs'
+            : error.message}
+        </p>
+      </div>
+    )
+  }
+
   return (
     <SignedIn>
       <div>this is where the log history is</div>
