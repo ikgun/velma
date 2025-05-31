@@ -42,7 +42,6 @@ function ProductPage() {
 
   return (
     <SignedIn>
-      <div>Hello "/products/$productId"!</div>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-[#252422] mb-4">{data.name}</h1>
 
@@ -71,6 +70,15 @@ function ProductPage() {
           Edit product
         </button>
 
+        {showEditProduct && (
+          <EditProductModal
+            id={productId}
+            oldName={data.name}
+            oldBrand={data.brand}
+            oldType={data.type}
+            oldExpirationDate={data.expirationDate}
+            onClose={() => setShowEditProduct(false)}
+          />
         )}
       </div>
     </SignedIn>
