@@ -7,6 +7,7 @@ export default function ProductCard(){
         </>
     )
 import type { Product as ProductCardProps } from '@/types'
+import type { FormEvent } from 'react'
 import { useDeleteProduct } from '@/hooks/product/useDeleteProduct'
 
 export default function ProductCard({
@@ -17,4 +18,9 @@ export default function ProductCard({
   expirationDate,
 }: ProductCardProps) {
   const mutation = useDeleteProduct()
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    mutation.mutate(id)
+  }
 }
