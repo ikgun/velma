@@ -7,13 +7,16 @@ export const Route = createFileRoute('/products/')({
 
 function ProductsPage() {
    const { isSignedIn, isLoaded } = useUser()
+  const { isSignedIn, isLoaded } = useUser()
+
   if (!isLoaded) {
-    return <div className="p-4">Loading...</div>
+    return <div className="p-4">Loading user...</div>
   }
 
   if (!isSignedIn) {
     return <div className="p-4">Sign in to view this page</div>
   }
+
   return (
     <SignedIn>
       <div>this is where all products are</div>
