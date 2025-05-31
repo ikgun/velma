@@ -6,4 +6,12 @@ export default function LogCard(){
         </div>
         </>
     )
+import type { Log, Product } from '@/types'
+export default function LogCard({
+  id,
+  dateTime,
+  notes,
+  productsUsed,
+  routineType,
+}: Log) {
 }
