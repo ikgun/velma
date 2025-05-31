@@ -11,6 +11,6 @@ public record LogListResponseDto(
         String routineType,
         List<Product> productsUsed,
         String notes,
-        Long userId
+        String userId
 ) {
 }

@@ -12,7 +12,7 @@ public record LogResponseDto(Long id,
                              String routineType,
                              List<Product> productsUsed,
                              String notes,
-                             Long userId) {
+                             String userId) {
 
     public static LogResponseDto fromLog(Log log) {
         return new LogResponseDto(log.getId(), log.getDateTime(), log.getRoutineType(), log.getProductsUsed(), log.getNotes(), log.getUserId());
