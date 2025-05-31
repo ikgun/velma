@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/logs/new')({
-  component: AddLogForm,
+  component: AddLogFormPage,
 })
 
-function AddLogForm() {
-  return <div>this is where add log form will go</div>
+function AddLogFormPage() {
 }
