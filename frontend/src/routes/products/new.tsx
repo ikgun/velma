@@ -51,6 +51,7 @@ function AddProductFormPage() {
             name="name"
             value={name}
             placeholder="Write name"
+            required
             onChange={(e) => setName(e.target.value)}
           />
         </label>
