@@ -1,6 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
+import type { FormEvent } from 'react'
+import type { Product } from '@/types'
 import { useCreateLog } from '@/hooks/log/useCreateLog'
 import { useGetAllProducts } from '@/hooks/product/useGetAllProducts'
 
@@ -18,7 +20,7 @@ function AddLogFormPage() {
   const { data: products = [], isLoading } = useGetAllProducts()
 
   if (!isLoaded) {
-    return <div className="p-4">Loading...</div>
+    return <div className="p-4">Loading form...</div>
   }
 
   if (!isSignedIn) {
