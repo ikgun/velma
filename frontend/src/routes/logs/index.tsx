@@ -1,10 +1,10 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/logs/')({
-  component: LogHistoryPage,
+  component: LogsPage,
 })
 
-function LogHistoryPage() {
+function LogsPage() {
   return (
     <>
       <div>this is where the log history is</div>
