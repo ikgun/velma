@@ -1,0 +1,76 @@
+import type { Product } from '@/types'
+
+const API_URL = 'http://localhost:8080/api/logs'
+
+// GET request to /api/logs
+export async function getAllLogs() {
+  const response = await fetch(API_URL)
+  const data = await response.json()
+  return data
+}
+
+// GET request to /api/logs/{id}
+export async function getLog(id: string) {
+  const response = await fetch(`${API_URL}/${id}`)
+  const data = await response.json()
+  return data
+}
+
+// //GET request to /api/recipes/search?query={query}
+// export async function getQuery(query: string) {
+//   const response = await fetch(`${API_URL}/search?query=${query}`)
+//   const data = await response.json()
+//   return data
+// }
+
+// POST request to /api/logs
+export async function createLog(
+  requestBody: {
+    dateTime: string
+    routineType: string
+    productsUsed: Array<Product>
+    notes: string
+  },
+  token: string,
+) {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(requestBody),
+  })
+  const data = await response.json()
+  return data
+}
+
+// PUT request to /api/logs/{id}
+export async function updateLog(
+  id: string,
+  requestBody: {
+    dateTime: string
+    routineType: string
+    productsUsed: Array<Product>
+    notes: string
+  },
+  token: string,
+) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(requestBody),
+  })
+  const data = await response.json()
+  return data
+}
+
+// DELETE request to /api/logs/{id}
+export async function deleteLog(id: string) {
+  await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  })
+}
