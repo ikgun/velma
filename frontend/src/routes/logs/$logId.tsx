@@ -22,6 +22,25 @@ function LogPage() {
   if (!isSignedIn) {
     return <div className="p-4">Sign in to view this page</div>
   }
+
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center h-screen px-4">
+        <p className="text-lg text-gray-600 text-center">Loading log...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen px-4">
+        <p className="text-lg text-red-500 text-center">
+          Error: {error.message}
+        </p>
+      </div>
+    )
+  }
+
   return (
     <SignedIn>
       <div>Hello "/logs/$logId"!</div>
