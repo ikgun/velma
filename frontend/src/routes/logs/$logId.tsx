@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useParams } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 
 export const Route = createFileRoute('/logs/$logId')({
@@ -6,6 +6,7 @@ export const Route = createFileRoute('/logs/$logId')({
 })
 
 function LogPage() {
+  const { logId } = useParams({ from: '/logs/$logId' })
   const { isSignedIn, isLoaded } = useUser()
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
