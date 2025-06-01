@@ -9,7 +9,6 @@ import velma.backend.domain.log.dtos.LogRequestDto;
 import velma.backend.domain.log.dtos.LogResponseDto;
 
 import java.net.URI;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -26,26 +25,22 @@ public class LogController {
     }
 
     @GetMapping
-    public ResponseEntity<?> listLogs() {
-        List<LogListResponseDto> response = logService.listAll()
+    public ResponseEntity<?> listLogs(Authentication auth) {
+        String userId = auth.getName();
+        List<LogListResponseDto> response = logService.listAll(userId)
                 .stream()
                 .map(log -> new LogListResponseDto(log.getId(),
                         log.getDateTime(), log.getRoutineType(), log.getProductsUsed(), log.getNotes(), log.getUserId()))
                 .toList();
 
-        if (response.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList());
-        }
-
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getLog(@PathVariable String id) {
-
-        Log log = logService.getById(validateLogId(id));
+    public ResponseEntity<?> getLog(@PathVariable String id, Authentication auth) {
+        String userId = auth.getName();
+        Log log = logService.getById(userId, validateLogId(id));
         return ResponseEntity.ok(LogResponseDto.fromLog(log));
-
     }
 
 //    @GetMapping(path = "/search")
@@ -66,39 +61,41 @@ public class LogController {
     @PostMapping
     public ResponseEntity<?> createLog(
             @RequestBody @Valid LogRequestDto dto,
-            Authentication auth){
+            Authentication auth) {
 
         String userId = auth.getName();
-
         Log log = logService.createLog(dto.dateTime(), dto.routineType(), dto.productsUsed(), dto.notes(), userId);
-
         return ResponseEntity
                 .created(URI.create(API_CONTEXT_ROOT + "/" + log.getId()))
                 .body(LogResponseDto.fromLog(log));
-
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateLog(
             @PathVariable String id,
-            @RequestBody @Valid LogRequestDto dto) {
+            @RequestBody @Valid LogRequestDto dto,
+            Authentication auth) {
 
-        Log log = logService.getById(validateLogId(id));
+        String userId = auth.getName();
+        Long logId = validateLogId(id);
 
-        log.setDateTime(dto.dateTime());
-        log.setRoutineType(dto.routineType());
-        log.setProductsUsed(dto.productsUsed());
-        log.setNotes(dto.notes());
-
-        Log updatedLog = logService.updateLog(log);
+        Log updatedLog = logService.updateLog(
+                userId,
+                logId,
+                dto.dateTime(),
+                dto.routineType(),
+                dto.productsUsed(),
+                dto.notes()
+        );
 
         return ResponseEntity.ok(LogResponseDto.fromLog(updatedLog));
-
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteLog(@PathVariable String id) {
-        logService.deleteLog(validateLogId(id));
+    public ResponseEntity<?> deleteLog(@PathVariable String id, Authentication auth) {
+        String userId = auth.getName();
+        logService.deleteLog(userId, validateLogId(id));
         return ResponseEntity.noContent().build();
     }
 
