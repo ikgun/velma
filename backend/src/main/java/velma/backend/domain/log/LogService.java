@@ -17,15 +17,14 @@ public class LogService {
         this.repository = repository;
     }
 
-    public Log getById(Long logId) {
-
-        return repository.findById(logId)
+    public Log getById(String userId, Long logId) {
+        return repository.findByUserIdAndId(userId, logId)
                 .orElseThrow(() -> new NoSuchElementException("Log with ID " + logId + " not found."));
-
     }
 
-    public List<Log> listAll() {
-        return repository.findAll();
+
+    public List<Log> listAll(String userId) {
+        return repository.findAllByUserId(userId);
     }
 
 //    public List<Log> listAllByQuery(String queryTerm) {
@@ -60,19 +59,21 @@ public class LogService {
         return newLog;
     }
 
-    public Log updateLog(Log log) {
+    public Log updateLog(String userId, Long logId, LocalDateTime dateTime, String routineType, List<Product> productsUsed, String notes) {
+        Log existingLog = getById(userId, logId);
 
-        Log updatedLog = repository.findById(log.getId())
-                .orElseThrow(() -> new NoSuchElementException("Log with ID " + log.getId() + " not found."));
+        existingLog.setDateTime(dateTime);
+        existingLog.setRoutineType(routineType);
+        existingLog.setProductsUsed(productsUsed);
+        existingLog.setNotes(notes);
 
-        repository.save(updatedLog);
-        return updatedLog;
+        return repository.save(existingLog);
     }
 
-    public void deleteLog(Long logId) {
-        repository.findById(logId)
-                .orElseThrow(() -> new NoSuchElementException("Log with ID " + logId + " not found."));
-        repository.deleteById(logId);
+
+    public void deleteLog(String userId, Long logId) {
+        Log log = getById(userId, logId);
+        repository.delete(log);
     }
 
 }
