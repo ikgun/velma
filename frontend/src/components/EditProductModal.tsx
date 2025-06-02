@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
 import { useUpdateProduct } from '@/hooks/product/useUpdateProduct'
 
@@ -48,15 +49,24 @@ export default function EditProductModal({
       return
     }
 
-    mutation.mutate({
-      id,
-      requestBody: {
-        name: newName,
-        brand: newBrand,
-        type: newType,
-        expirationDate: newExpirationDate,
+    mutation.mutate(
+      {
+        id,
+        requestBody: {
+          name: newName,
+          brand: newBrand,
+          type: newType,
+          expirationDate: newExpirationDate,
+        },
       },
-    })
+      {
+        onSuccess: () => {
+          toast.success('Product updated successfully!')
+          dialogRef.current?.close()
+          onClose()
+        },
+      },
+    )
 
     if (mutation.error) {
       console.log(mutation.error.message)
