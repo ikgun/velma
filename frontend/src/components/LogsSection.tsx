@@ -9,6 +9,13 @@ export default function LogsSection({ logs }: LogsSectionProps) {
   const hasLogs = logs && logs.length > 0
   // Take the last 3 logs and reverse to show newest first
   const lastThreeLogs = hasLogs ? logs.slice(-3).reverse() : []
+
+  return (
+    <div className="py-5">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4">
+        Here are your latest skincare logs
+      </h1>
+
       <div className="flex gap-2 w-90 h-10 mb-6">
         <Link
           to="/logs/new"
