@@ -1,39 +1,35 @@
 import { enUS } from 'date-fns/locale'
 import { format } from 'date-fns'
 import { Link } from '@tanstack/react-router'
-import type { Log, Product } from '@/types'
+import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
 import { useDeleteLog } from '@/hooks/log/useDeleteLog'
 
-export default function LogCard({
-  id,
-  dateTime,
-  notes,
-  productsUsed,
-  routineType,
-}: Log) {
 function formatCustomDate(dateStr: string) {
   const date = new Date(dateStr)
   return format(date, "EEEE, do 'of' MMMM 'at' HH:mm", { locale: enUS })
 }
 
+export default function LogCard(data: Log) {
   const mutation = useDeleteLog()
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     mutation.mutate(id)
+      onSuccess: () => {
+        toast.success('Log removed successfully!')
+      },
+    })
   }
-  return (
-    <div className="bg-white text-black shadow-md rounded-xl p-4 w-full max-w-md space-y-4">
-      <div>
-        <h2 className="text-xl font-semibold">Log Entry</h2>
-        <p className="text-sm text-gray-500">Date: {dateTime}</p>
-      </div>
 
-      <div>
-        <p className="font-medium">Notes:</p>
-        <p className="text-gray-700">{!notes ? "Nothing here..." : notes}</p>
+  return (
+    <div className="bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
+      {/* Header */}
+      <div className="mb-2">
+        <h2 className="text-lg sm:text-xl font-semibold">Log Entry</h2>
+        <p className="text-xs sm:text-sm text-gray-500">
           Created at {formatCustomDate(data.dateTime)}
+        </p>
       </div>
 
       <div>
