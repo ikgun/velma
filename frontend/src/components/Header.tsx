@@ -6,29 +6,8 @@ export default function Header() {
   const { isSignedIn } = useUser()
   const homeOrDash = isSignedIn ? 'Dashboard' : 'Home'
   return (
-    <header className="p-2 flex gap-2 bg-white text-black justify-between">
-      <nav className="flex flex-row">
-        <h1 className='px-2 font-bold'>LOGO </h1>
-        <div className="px-2 font-bold">
-          <Link to="/">{homeOrDash}</Link>
-        </div>
-
-        {isSignedIn ? (
-          <>
-            <div className="px-2 font-bold">
-              <Link to="/logs">Logs</Link>
-            </div>
-            <div className="px-2 font-bold">
-              <Link to="/products">Products</Link>
-            </div>
-          </>
-        ) : null}
-      </nav>
-
-      <div>
-        <ClerkHeader />
-      </div>
-    </header>
+    <nav className="bg-[#1f1f1f] text-white shadow-sm px-4 py-4 font-old sticky top-0 z-50">
+      <div className="flex items-center justify-between mx-auto p-3 max-w-screen-xl">
         {/* Logo */}
         <Link
           to="/"
@@ -51,5 +30,31 @@ export default function Header() {
           </svg>
           <span className="text-xl font-semibold">Velma</span>
         </Link>
+        {/* Desktop Nav */}
+        {isSignedIn && (
+          <ul className="hidden md:flex flex-row items-center justify-center gap-2 text-sm font-medium ml-5">
+            <li>
+              <Link
+                to="/dashboard"
+                className="px-3 py-2 rounded hover:bg-[#333333]"
+              >
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/logs" className="px-3 py-2 rounded hover:bg-[#333333]">
+                Logs
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/products"
+                className="px-3 py-2 rounded hover:bg-[#333333]"
+              >
+                Products
+              </Link>
+            </li>
+          </ul>
+        )}
   )
 }
