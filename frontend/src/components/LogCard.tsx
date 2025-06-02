@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { enUS } from 'date-fns/locale'
+import { format } from 'date-fns'
 import { Link } from '@tanstack/react-router'
 import type { Log, Product } from '@/types'
 import type { FormEvent } from 'react'
@@ -11,6 +12,11 @@ export default function LogCard({
   productsUsed,
   routineType,
 }: Log) {
+function formatCustomDate(dateStr: string) {
+  const date = new Date(dateStr)
+  return format(date, "EEEE, do 'of' MMMM 'at' HH:mm", { locale: enUS })
+}
+
   const mutation = useDeleteLog()
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -27,6 +33,7 @@ export default function LogCard({
       <div>
         <p className="font-medium">Notes:</p>
         <p className="text-gray-700">{!notes ? "Nothing here..." : notes}</p>
+          Created at {formatCustomDate(data.dateTime)}
       </div>
 
       <div>
