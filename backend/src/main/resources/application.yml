@@ -23,7 +23,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://right-pony-24.clerk.accounts.dev
+          issuer-uri: ${ISSUER_URI}
 
 
 logging:
