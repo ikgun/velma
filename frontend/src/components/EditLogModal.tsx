@@ -28,6 +28,13 @@ export default function EditLogModal({
   const [newProductsUsed, setNewProductsUsed] = useState(oldProductsUsed)
   const [newNotes, setNewNotes] = useState(oldNotes)
   const [validationError, setValidationError] = useState('')
+
+  const [productSearch, setProductSearch] = useState('')
+  const [filteredProducts, setFilteredProducts] = useState<Array<Product>>([])
+  const [dropdownVisible, setDropdownVisible] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const mutation = useUpdateLog()
   const { data: products = [] } = useGetAllProducts()
@@ -60,6 +67,7 @@ export default function EditLogModal({
     }
   }, [productSearch, products, dropdownVisible])
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -78,8 +86,14 @@ export default function EditLogModal({
     e.preventDefault()
     setValidationError('')
 
-    if (!newDateTime || !newRoutineType ) {
-      setValidationError('Please fill in all fields')
+    if (!newDateTime) {
+      setValidationError('Please pick a date!')
+      return
+    }
+
+    if (!newRoutineType) {
+      const msg = 'Please pick a routine type!'
+      setValidationError(msg)
       return
     }
 
