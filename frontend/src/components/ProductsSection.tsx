@@ -61,4 +61,21 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
               </div>
             ))}
           </div>
+
+          {/* Grid layout for sm+ screens */}
+          <div className="hidden sm:grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            {lastThree.map((product) => (
+              <div key={product.id} className="h-full flex">
+                <ProductCard {...product} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p className="text-gray-600 mb-4">
+          You haven’t added any products yet. Start adding your skincare products!
+        </p>
+      )}
+    </div>
+  )
 }
