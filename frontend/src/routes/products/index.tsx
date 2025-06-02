@@ -14,6 +14,7 @@ function ProductsPage() {
 
   if (!isLoaded) {
     return <div className="p-4">Loading user...</div>
+        <span className="loading loading-dots loading-xl"></span>
   }
 
   if (!isSignedIn) {
@@ -36,6 +37,7 @@ function ProductsPage() {
             <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
           </div>
         )}
+              <span className="loading loading-dots loading-xl"></span>
 
         {error && (
           <div className="text-center text-red-500">
