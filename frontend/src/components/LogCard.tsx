@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import { Link } from '@tanstack/react-router'
 import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
+import type { Log } from '../types'
 import { useDeleteLog } from '@/hooks/log/useDeleteLog'
 
 function formatCustomDate(dateStr: string) {
@@ -12,10 +13,10 @@ function formatCustomDate(dateStr: string) {
 
 export default function LogCard(data: Log) {
   const mutation = useDeleteLog()
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-
-    mutation.mutate(id)
+    mutation.mutate(data.id, {
       onSuccess: () => {
         toast.success('Log removed successfully!')
       },
@@ -43,6 +44,7 @@ export default function LogCard(data: Log) {
         ) : (
           <p className="text-gray-400 italic">There are no products in this log!</p>
         )}
+        <p className="text-sm sm:text-base text-gray-700">{data.routineType}</p>
       </div>
 
       <div>
@@ -58,6 +60,7 @@ export default function LogCard(data: Log) {
           to={'/logs/$logId'}
           params={{ logId: String(id) }}
           className="text-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+          params={{ logId: String(data.id) }}
         >
           See more
         </Link>
