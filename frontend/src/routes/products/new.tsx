@@ -27,6 +27,8 @@ function AddProductFormPage() {
   
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+  const { mutate, isSuccess, error, isPending } = useCreateProduct()
+  const [validationError, setValidationError] = useState('')
 
   useEffect(() => {
     if (isSuccess) {
@@ -45,7 +47,16 @@ function AddProductFormPage() {
 
     if (error) {
       console.log(error.message)
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setValidationError('')
+
+    if (!name) {
+      setValidationError('Please fill in name!')
+      return
     }
+
+    mutate({ name, brand, type, expirationDate })
   }
 
   return (
