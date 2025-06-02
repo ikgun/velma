@@ -50,4 +50,15 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
         
       </div>
 
+      {/* Products Grid / Scroll */}
+      {hasProducts ? (
+        <div className="mt-5">
+          {/* Horizontal scroll for mobile */}
+          <div className="flex gap-4 overflow-x-auto sm:hidden pb-2">
+            {lastThree.map((product) => (
+              <div key={product.id} className="min-w-[280px] flex-shrink-0">
+                <ProductCard {...product} />
+              </div>
+            ))}
+          </div>
 }
