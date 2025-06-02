@@ -43,6 +43,23 @@ export default function EditLogModal({
     }
   }, [mutation.isSuccess])
 
+  useEffect(() => {
+    if (!dropdownVisible) {
+      setFilteredProducts([])
+      return
+    }
+
+    if (productSearch.trim() === '') {
+      // Show all products if search empty & dropdown open
+      setFilteredProducts(products)
+    } else {
+      const filtered = products.filter((p: Product) =>
+        p.name.toLowerCase().startsWith(productSearch.toLowerCase()),
+      )
+      setFilteredProducts(filtered)
+    }
+  }, [productSearch, products, dropdownVisible])
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setValidationError('')
@@ -96,10 +113,12 @@ export default function EditLogModal({
           &times;
         </button>
 
-        <h3 className="text-2xl  text-[#252422] text-center font-semibold mb-6">
-          Edit Log
-        </h3>
+        <div className="mb-5">
+          <h3 className="text-2xl font-semibold mb-6 text-center">Edit Log</h3>
+          <p className="text-sm text-gray-500">
             Created at {formatCustomDate(oldDateTime)}
+          </p>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <label
