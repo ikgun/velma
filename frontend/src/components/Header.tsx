@@ -1,9 +1,10 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import { useUser } from '@clerk/clerk-react'
 import ClerkUser from '../integrations/clerk/header-user'
 
 export default function Header() {
   const { isSignedIn } = useUser()
+  const location = useRouterState({ select: (s) => s.location.pathname })
 
   return (
     <nav className="bg-[#1f1f1f] text-white shadow-sm px-4 py-4 font-old sticky top-0 z-50">
@@ -37,20 +38,29 @@ export default function Header() {
             <li>
               <Link
                 to="/dashboard"
-                className="px-3 py-2 rounded hover:bg-[#333333]"
+                className={`px-3 py-2 rounded hover:bg-[#333333] ${
+                  location === '/dashboard' ? 'bg-[#333333]' : ''
+                }`}
               >
                 Dashboard
               </Link>
             </li>
             <li>
-              <Link to="/logs" className="px-3 py-2 rounded hover:bg-[#333333]">
+              <Link
+                to="/logs"
+                className={`px-3 py-2 rounded hover:bg-[#333333] ${
+                  location === '/logs' ? 'bg-[#333333]' : ''
+                }`}
+              >
                 Logs
               </Link>
             </li>
             <li>
               <Link
                 to="/products"
-                className="px-3 py-2 rounded hover:bg-[#333333]"
+                className={`px-3 py-2 rounded hover:bg-[#333333] ${
+                  location === '/products' ? 'bg-[#333333]' : ''
+                }`}
               >
                 Products
               </Link>
@@ -115,6 +125,30 @@ export default function Header() {
                       <ClerkUser />
                     </li>
                   </>
+                  <li>
+                    <Link
+                      to="/dashboard"
+                      className={location === '/dashboard' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/logs"
+                      className={location === '/logs' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                    >
+                      Logs
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/products"
+                      className={location === '/products' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                    >
+                      Products
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
