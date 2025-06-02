@@ -7,18 +7,18 @@ export default function Header() {
   const location = useRouterState({ select: (s) => s.location.pathname })
 
   return (
-    <nav className="bg-[#1f1f1f] text-white shadow-sm px-4 py-4 font-old sticky top-0 z-50">
+    <nav className="bg-[#1f1f1f] text-white shadow-md shadow-gray-400 font-old sticky top-0 z-50">
       <div className="flex items-center justify-between mx-auto p-3 max-w-screen-xl">
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center space-x-2 hover:bg-[#333333] px-2 py-1 rounded"
+          className="flex items-center justify-center space-x-2 hover:bg-[#333333] px-2 py-1 rounded"
         >
           <svg
             fill="currentColor"
             viewBox="0 0 512 512"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className="mr-1 w-6 h-6"
           >
             <polygon points="396.31 32 264 32 348.19 144.26 396.31 32" />
             <polygon points="115.69 32 163.81 144.26 248 32 115.69 32" />
@@ -29,12 +29,12 @@ export default function Header() {
             <polygon points="365.32 192 264.67 480 265.2 480 488 192 365.32 192" />
             <polygon points="329.39 192 182.61 192 256 400 329.39 192" />
           </svg>
-          <span className="text-xl font-semibold">Velma</span>
+          <span className="text-3xl font-semibold">Velma</span>
         </Link>
 
         {/* Desktop Nav */}
         {isSignedIn && (
-          <ul className="hidden md:flex flex-row items-center justify-center gap-2 text-sm font-medium ml-5">
+          <ul className="hidden md:flex flex-row items-center justify-center gap-2 text-lg font-medium ml-5">
             <li>
               <Link
                 to="/dashboard"
@@ -74,11 +74,9 @@ export default function Header() {
         </div>
 
         {!isSignedIn && (
-          <>
-            <div className="md:hidden ml-auto">
-              <ClerkUser />
-            </div>
-          </>
+          <div className="md:hidden ml-auto">
+            <ClerkUser />
+          </div>
         )}
 
         {isSignedIn && (
@@ -92,39 +90,22 @@ export default function Header() {
               <div className="drawer-content">
                 <label htmlFor="mobile-drawer" className="drawer-button px-2">
                   <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 17 14"
+                    viewBox="0 -0.5 25 25"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    stroke="#ffffff"
+                    className="w-8 h-8"
                   >
                     <path
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      d="M1 1h15M1 7h15M1 13h15"
+                      d="M5.5 11.75C5.08579 11.75 4.75 12.0858 4.75 12.5C4.75 12.9142 5.08579 13.25 5.5 13.25V11.75ZM19.5 13.25C19.9142 13.25 20.25 12.9142 20.25 12.5C20.25 12.0858 19.9142 11.75 19.5 11.75V13.25ZM5.5 7.75C5.08579 7.75 4.75 8.08579 4.75 8.5C4.75 8.91421 5.08579 9.25 5.5 9.25V7.75ZM14.833 9.25C15.2472 9.25 15.583 8.91421 15.583 8.5C15.583 8.08579 15.2472 7.75 14.833 7.75V9.25ZM5.5 15.75C5.08579 15.75 4.75 16.0858 4.75 16.5C4.75 16.9142 5.08579 17.25 5.5 17.25V15.75ZM14.833 17.25C15.2472 17.25 15.583 16.9142 15.583 16.5C15.583 16.0858 15.2472 15.75 14.833 15.75V17.25ZM5.5 13.25H19.5V11.75H5.5V13.25ZM5.5 9.25H14.833V7.75H5.5V9.25ZM5.5 17.25H14.833V15.75H5.5V17.25Z"
+                      fill="#ffffff"
                     />
                   </svg>
                 </label>
               </div>
               <div className="drawer-side z-50">
-                <label
-                  htmlFor="mobile-drawer"
-                  className="drawer-overlay"
-                ></label>
-                <ul className="menu items-center justify-center  w-40 min-h-full bg-[#1f1f1f] text-white space-y-2">
-                  <>
-                    <li>
-                      <Link to="/dashboard">Dashboard</Link>
-                    </li>
-                    <li>
-                      <Link to="/logs">Logs</Link>
-                    </li>
-                    <li>
-                      <Link to="/products">Products</Link>
-                    </li>
-                    <li className="pt-4">
-                      <ClerkUser />
-                    </li>
-                  </>
+                <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
+                <ul className="menu items-center justify-center text-lg w-40 min-h-full bg-[#1f1f1f] text-white space-y-2">
                   <li>
                     <Link
                       to="/dashboard"
@@ -148,6 +129,9 @@ export default function Header() {
                     >
                       Products
                     </Link>
+                  </li>
+                  <li className="pt-4">
+                    <ClerkUser />
                   </li>
                 </ul>
               </div>
