@@ -99,9 +99,12 @@ function AddLogFormPage() {
     if (error) {
       toast.error(error.message || 'Failed to create log.')
     }
-  }
   }, [isSuccess, error])
 
+  if (!isLoaded)
+    return <div className="p-4 text-[#141414]">Loading user...</div>
+  if (!isSignedIn)
+    return <div className="p-4 text-[#141414]">Sign in to view this page</div>
 
   return (
     <SignedIn>
