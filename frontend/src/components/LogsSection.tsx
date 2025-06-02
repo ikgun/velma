@@ -18,4 +18,7 @@ export default function LogsSection(){
     )
 export default function LogsSection({ logs }: LogsSectionProps) {
 export default function LogsSection({ logs }: LogsSectionProps) {
+  const hasLogs = logs && logs.length > 0
+  // Take the last 3 logs and reverse to show newest first
+  const lastThreeLogs = hasLogs ? logs.slice(-3).reverse() : []
 }
