@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import type { Product as ProductCardProps } from '@/types'
+import { toast } from 'react-toastify'
+import type { Product } from '@/types'
 import type { FormEvent } from 'react'
 import { useDeleteProduct } from '@/hooks/product/useDeleteProduct'
 
@@ -8,10 +9,13 @@ export default function ProductCard(data: Product) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-
-    mutation.mutate(id)
     mutation.mutate(data.id, {
+      onSuccess: () => {
+        toast.success('Product removed successfully!')
+      },
+    })
   }
+
   return (
     <div className="bg-red-300 p-4 rounded-md">
       <p className="font-bold">Product Card</p>
