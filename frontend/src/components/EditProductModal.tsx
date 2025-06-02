@@ -80,7 +80,8 @@ export default function EditProductModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative">
+      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl mx-auto text-[#141414] font-old">
+        {/* Close Button */}
         <button
           onClick={handleCancel}
           className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold cursor-pointer"
@@ -89,71 +90,74 @@ export default function EditProductModal({
           &times;
         </button>
 
-        <h3 className="text-2xl  text-[#252422] text-center font-semibold mb-6">
+        {/* Title */}
+        <h3 className="text-2xl font-semibold mb-6 text-center">
           Edit Product
         </h3>
 
-        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-          <label
-            htmlFor="name"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Name
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name */}
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Name</label>
             <input
               type="text"
-              id="name"
-              className="mt-1 border border-gray-300 rounded-md p-2  text-gray-900 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
               placeholder="Name"
-              required
               value={newName}
               onChange={(e) => setNewname(e.target.value)}
+              required
             />
-          </label>
+          </div>
 
-          <label
-            htmlFor="brand"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Brand
+          {/* Brand */}
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Brand</label>
             <input
               type="text"
-              id="brand"
-              className="mt-1 border border-gray-300 rounded-md p-2  text-gray-900 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
               placeholder="Brand"
               value={newBrand}
               onChange={(e) => setNewBrand(e.target.value)}
             />
-          </label>
+          </div>
 
-          <label
-            htmlFor="type"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Type
+          {/* Type */}
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Type</label>
             <input
               type="text"
-              id="type"
-              className="mt-1 border border-gray-300 rounded-md p-2  text-gray-900 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
               placeholder="Type"
               value={newType}
               onChange={(e) => setNewType(e.target.value)}
             />
-          </label>
+          </div>
 
-          <label
-            htmlFor="date"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Expiration date:
+          {/* Expiration Date */}
+          <div className="flex flex-col relative">
+            <label className="text-lg font-semibold mb-2">
+              Expiration Date
+            </label>
             <input
               type="date"
-              name="date"
-              id="date"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
               value={newExpirationDate}
               onChange={(e) => setNewExpirationDate(e.target.value)}
             />
-          </label>
 
+            <svg
+              className="absolute right-3 top-11.5 w-5 h-5 text-gray-400  pointer-events-none"
+              fill="none"
+              stroke="black"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+
+          {/* Error */}
           {(validationError || mutation.error) && (
             <p className="font-bold text-red-500 text-sm">
               {validationError
@@ -164,18 +168,19 @@ export default function EditProductModal({
             </p>
           )}
 
+          {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end sm:gap-4 gap-2 mt-4">
             <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded-lg transition"
+              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Save
             </button>
