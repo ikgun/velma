@@ -1,10 +1,12 @@
 spring:
   application:
     name: Velma
+  config:
+    import: "classpath:env.properties"
   datasource:
-    url: jdbc:postgresql://localhost:5432/velmadb
-    username: velma
-    password: secret
+    url: ${POSTGRES_LOCATION}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     show-sql: true
     defer-datasource-initialization: true
