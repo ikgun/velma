@@ -191,6 +191,27 @@ function AddLogFormPage() {
                 <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
             </div>
+
+            {/* Routine Type */}
+            <fieldset>
+              <legend className="text-lg font-semibold mb-2">
+                Routine Type
+              </legend>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                {['Morning', 'Evening', 'Unspecified'].map((value) => (
+                  <label key={value} className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="routine"
+                      value={value}
+                      checked={routineType === value}
+                      onChange={(e) => setRoutineType(e.target.value)}
+                    />
+                    {value}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
                   <input
                     type="checkbox"
                     checked={productsUsed.includes(product)}
