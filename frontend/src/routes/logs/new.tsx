@@ -242,7 +242,7 @@ function AddLogFormPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] transition-colors w-full sm:w-auto"
+                className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors w-full sm:w-auto"
               >
                 Save Log
               </button>

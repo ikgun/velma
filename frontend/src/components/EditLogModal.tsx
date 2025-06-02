@@ -24,7 +24,7 @@ export default function EditLogModal({
   oldNotes,
   onClose,
 }: EditLogModalProps) {
-  const [newDateTime, setNewDateTime] = useState(oldDateTime)
+  const newDateTime = oldDateTime
   const [newRoutineType, setNewRoutineType] = useState(oldRoutineType)
   const [newProductsUsed, setNewProductsUsed] = useState(oldProductsUsed)
   const [newNotes, setNewNotes] = useState(oldNotes)
@@ -89,11 +89,6 @@ export default function EditLogModal({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setValidationError('')
-
-    if (!newDateTime) {
-      setValidationError('Please pick a date!')
-      return
-    }
 
     if (!newRoutineType) {
       const msg = 'Please pick a routine type!'
@@ -264,7 +259,7 @@ export default function EditLogModal({
             <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded transition"
+              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
             >
               Cancel
             </button>

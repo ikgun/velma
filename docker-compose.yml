@@ -32,17 +32,17 @@ services:
       - velma-postgres
     restart: on-failure
 
-#  velma-frontend:
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#    image: velma-frontend
-#    container_name: velma-frontend
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - ./frontend:/app
-#      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
-#    depends_on:
-#      - velma-backend
-#    restart: on-failure
+  velma-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: velma-frontend
+    container_name: velma-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
+    environment:
+      - VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY}
+    restart: on-failure

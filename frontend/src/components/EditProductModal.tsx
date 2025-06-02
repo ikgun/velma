@@ -173,7 +173,7 @@ export default function EditProductModal({
             <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded transition"
+              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
             >
               Cancel
             </button>
