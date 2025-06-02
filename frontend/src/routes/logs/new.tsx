@@ -18,6 +18,7 @@ function AddLogFormPage() {
   const [notes, setNotes] = useState('')
   const { mutate, isSuccess, error, isPending } = useCreateLog()
   const { data: products = [], isLoading } = useGetAllProducts()
+  const [validationError, setValidationError] = useState('')
   const [productSearch, setProductSearch] = useState('')
   const [filteredProducts, setFilteredProducts] = useState<Array<Product>>([])
   const [dropdownVisible, setDropdownVisible] = useState(false)
@@ -70,6 +71,17 @@ function AddLogFormPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+    setValidationError('')
+
+    if (!dateTime) {
+      setValidationError('Please pick a date!')
+      return
+    }
+
+    if (!routineType) {
+      setValidationError('Please pick a routine type!')
+      return
+    }
 
     mutate({ dateTime, routineType, productsUsed, notes })
 
