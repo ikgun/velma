@@ -1,7 +1,7 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import { ToastContainer } from 'react-toastify'
 import Header from '../components/Header.tsx'
-
 import ClerkProvider from '../integrations/clerk/provider.tsx'
 
 export const Route = createRootRoute({
@@ -11,6 +11,19 @@ export const Route = createRootRoute({
 function Root(){
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+        aria-label="Notifications"
+        className="!text-sm sm:!text-base"
+        style={{ height: '95px' }}
+      />
+
       <ClerkProvider>
         <Header />
         <Outlet />
