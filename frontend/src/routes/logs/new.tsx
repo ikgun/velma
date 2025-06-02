@@ -64,12 +64,8 @@ function AddLogFormPage() {
     setDropdownVisible(false)
   }
 
-  const toggleProduct = (selectedProduct: Product) => {
-    setProductsUsed((existingProducts) =>
-      existingProducts.includes(selectedProduct)
-        ? existingProducts.filter((each) => each.id !== each.id)
-        : [...existingProducts, selectedProduct],
-    )
+  const removeProduct = (productId: string) => {
+    setProductsUsed(productsUsed.filter((p) => String(p.id) !== productId))
   }
 
   const handleSubmit = (e: FormEvent) => {
