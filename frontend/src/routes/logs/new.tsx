@@ -21,6 +21,9 @@ function AddLogFormPage() {
   const [productSearch, setProductSearch] = useState('')
   const [filteredProducts, setFilteredProducts] = useState<Array<Product>>([])
   const [dropdownVisible, setDropdownVisible] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
   // Filter products on search term
   useEffect(() => {
     if (!dropdownVisible) {
@@ -38,9 +41,20 @@ function AddLogFormPage() {
     }
   }, [productSearch, products, dropdownVisible])
 
-  if (!isLoaded) {
-    return <div className="p-4">Loading form...</div>
-  }
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        inputRef.current !== event.target
+      ) {
+        setDropdownVisible(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   if (!isSignedIn) {
     return <div className="p-4">Sign in to view this page</div>
