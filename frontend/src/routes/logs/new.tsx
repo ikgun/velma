@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
 import type { Product } from '@/types'
 import { useCreateLog } from '@/hooks/log/useCreateLog'
@@ -108,67 +109,14 @@ function AddLogFormPage() {
 
   return (
     <SignedIn>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Date & Time:
-          <input
-            type="datetime-local"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
-          />
-        </label>
-        <fieldset>
-          <legend className="font-medium mb-2">Routine Type:</legend>
-          <label className="mr-4">
-            <input
-              type="radio"
-              name="routine"
-              value="Morning"
-              checked={routineType === 'Morning'}
-              onChange={(e) => setRoutineType(e.target.value)}
-            />
-            <span className="ml-1">Morning</span>
-          </label>
-          <label className="mr-4">
-            <input
-              type="radio"
-              name="routine"
-              value="Evening"
-              checked={routineType === 'Evening'}
-              onChange={(e) => setRoutineType(e.target.value)}
-            />
-            <span className="ml-1">Evening</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="routine"
-              value="Unspecified"
-              checked={routineType === 'Unspecified'}
-              onChange={(e) => setRoutineType(e.target.value)}
-            />
-            <span className="ml-1">Unspecified</span>
-          </label>
-        </fieldset>
-        <h2 className="text-lg font-bold">Select Products Used</h2>
-        {isLoading ? (
-          <p>Loading your products...</p>
-        ) : products.length === 0 ? (
-          <p className="text-gray-400">
-            Create some products to add to your log!
-          </p>
-        ) : (
-          <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {products.map((product: Product) => (
-                <label
-                  key={product.id}
-                  className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 cursor-pointer"
-                >
+      <div className="min-h-screen bg-white text-[#141414] px-4 sm:px-6 py-10 font-old">
+        <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-semibold mb-6">Add New Log Entry</h1>
 
           <form
             onSubmit={handleSubmit}
+            className="space-y-6 shadow-md p-4 sm:p-6 rounded-lg border"
+          >
             {/* Date & Time */}
             <div className="flex flex-col relative">
               <label className="text-lg font-semibold mb-2">
