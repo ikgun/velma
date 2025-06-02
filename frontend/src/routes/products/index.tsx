@@ -13,60 +13,80 @@ function ProductsPage() {
   const { data, isPending, error } = useGetAllProducts()
 
   if (!isLoaded) {
-    return <div className="p-4">Loading user...</div>
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
         <span className="loading loading-dots loading-xl"></span>
+      </div>
+    )
   }
 
   if (!isSignedIn) {
-    return <div className="p-4">Sign in to view this page</div>
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <p className="text-lg mb-4">Sign in to view this page</p>
+      </div>
+    )
   }
 
   return (
     <SignedIn>
-      <div className="max-w-7xl mx-auto px-4 py-10 space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Your Products</h1>
-          <Link to="/products/new" className="text-blue-600 hover:underline font-medium">
-            Add new product
-          </Link>
-        </div>
+      <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
+        <div className="m-10">
+          <h1 className="text-2xl font-semibold mb-5">Your Products</h1>
 
-        {isPending && (
-          <div className="flex flex-col items-center justify-center min-h-[300px] text-gray-500">
-            <p className="text-lg mb-4">Loading products...</p>
-            <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        )}
+          {isPending && (
+            <div className="flex gap-2 items-center justify-center text-center min-h-[300px]">
+              <p className="text-lg">Loading products</p>
               <span className="loading loading-dots loading-xl"></span>
+            </div>
+          )}
 
-        {error && (
-          <div className="text-center text-red-500">
-            <p className="text-lg">
-              {error.message === 'Failed to fetch'
-                ? 'Failed to fetch products.'
-                : error.message}
+          {error && (
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
+              <p className="text-lg">
+                {error.message === 'Failed to fetch'
+                  ? 'Failed to fetch products'
+                  : error.message}
+              </p>
+            </div>
+          )}
+
+          {/* Show Add button only when there's no error or loading */}
+          {!error && !isPending && (
+            <div className="mb-5">
+              <Link
+                to="/products/new"
+                className="bg-[#141414] text-white px-4 py-3 rounded hover:bg-gray-700 transition-colors duration-200"
+              >
+                + Add New Product
+              </Link>
+            </div>
+          )}
+
+          {/* Empty state message */}
+          {!error && !isPending && data?.length === 0 && (
+            <p className="text-gray-500 mt-5">
+              You have no products yet. Add some to track your skincare items.
             </p>
-          </div>
-        )}
+          )}
 
-        {!isPending && !error && data?.length === 0 && (
-          <div className="text-center text-gray-400">No products found.</div>
-        )}
-
-        {!isPending && !error && data?.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.map((product: Product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                brand={product.brand}
-                type={product.type}
-                expirationDate={product.expirationDate}
-              />
-            ))}
-          </div>
-        )}
+          {/* Product list */}
+          {!error && !isPending && data?.length > 0 && (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-5">
+              {data.map((product: Product) => (
+                <div key={product.id} className="h-full flex">
+                  <ProductCard
+                    id={product.id}
+                    name={product.name}
+                    brand={product.brand}
+                    type={product.type}
+                    expirationDate={product.expirationDate}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </SignedIn>
   )
