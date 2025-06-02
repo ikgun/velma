@@ -1,4 +1,6 @@
 import LogCard from "./LogCard";
+import type { Log } from '@/types'
+  logs: Array<Log>
 
 export default function LogsSection(){
     return(
@@ -11,4 +13,5 @@ export default function LogsSection(){
         </div>
         </>
     )
+export default function LogsSection({ logs }: LogsSectionProps) {
 }
