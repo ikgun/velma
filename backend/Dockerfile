@@ -1,13 +1,19 @@
-# --------- BUILD STAGE ---------
+# Stage 1: Build
 FROM maven:3.9.9-eclipse-temurin-21 AS build
 
-WORKDIR /usr/local/app
+WORKDIR /app
 
-COPY pom.xml .
-COPY src ./src
+COPY . .
 
-RUN mvn -f pom.xml clean package
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+COPY --from=build /app/target/velma-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "target/velma-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "app.jar"]
