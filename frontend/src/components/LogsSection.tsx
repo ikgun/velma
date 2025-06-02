@@ -1,4 +1,6 @@
-import LogCard from "./LogCard";
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { Link } from '@tanstack/react-router'
+import LogCard from './LogCard'
 import type { Log } from '@/types'
 
 type LogsSectionProps = {
@@ -48,4 +50,18 @@ export default function LogsSection({ logs }: LogsSectionProps) {
           </Link>
         
       </div>
+
+      {hasLogs ? (
+        <div className="space-y-4 mb-4">
+          {lastThreeLogs.map((log) => (
+            <LogCard key={log.id} {...log} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-600 mb-4">
+          You haven’t added any logs yet. Start tracking your skincare journey!
+        </p>
+      )}
+    </div>
+  )
 }
