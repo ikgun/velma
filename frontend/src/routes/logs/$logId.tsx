@@ -23,11 +23,19 @@ function LogPage() {
   }
 
   if (!isLoaded) {
-    return <div className="p-4">Loading...</div>
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    )
   }
 
   if (!isSignedIn) {
-    return <div className="p-4">Sign in to view this page</div>
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <p className="text-lg mb-4">Sign in to view this page</p>
+      </div>
+    )
   }
 
   if (isPending) {
@@ -55,23 +63,26 @@ function LogPage() {
           {data.dateTime}
         </h1>
 
-        <section className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-700 mb-2">
-            Products used
-          </h2>
-          {data.productsUsed && data.productsUsed.length > 0 ? (
-            <ul className="list-disc list-inside text-gray-600 text-sm">
-              {data.productsUsed.map((p: Product) => (
-                <li key={p.id}>{p.name.trim()}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-400 italic">
-              There are no products in this log!
-            </p>
-          )}
-        </section>
+          <p className="mb-8 text-gray-700 text-sm">
             Created at {formatCustomDate(data.dateTime)}
+          </p>
+
+          <section className="mb-8">
+            <h2 className="text-lg font-semibold mb-2 text-gray-700">
+              Products Used
+            </h2>
+            {data.productsUsed && data.productsUsed.length > 0 ? (
+              <ul className="list-disc list-inside text-gray-600 text-sm">
+                {data.productsUsed.map((p: Product) => (
+                  <li key={p.id}>{p.name.trim()}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-400 italic">
+                There are no products in this log!
+              </p>
+            )}
+          </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
