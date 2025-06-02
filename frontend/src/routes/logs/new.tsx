@@ -56,8 +56,12 @@ function AddLogFormPage() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  if (!isSignedIn) {
-    return <div className="p-4">Sign in to view this page</div>
+  const addProduct = (product: Product) => {
+    if (!productsUsed.find((p) => p.id === product.id)) {
+      setProductsUsed([...productsUsed, product])
+    }
+    setProductSearch('')
+    setDropdownVisible(false)
   }
 
   const toggleProduct = (selectedProduct: Product) => {
