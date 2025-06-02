@@ -60,6 +60,20 @@ export default function EditLogModal({
     }
   }, [productSearch, products, dropdownVisible])
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        inputRef.current !== event.target
+      ) {
+        setDropdownVisible(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     setValidationError('')
