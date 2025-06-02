@@ -165,6 +165,32 @@ function AddLogFormPage() {
                   key={product.id}
                   className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 cursor-pointer"
                 >
+          <h1 className="text-2xl font-semibold mb-6">Add New Log Entry</h1>
+
+          <form
+            onSubmit={handleSubmit}
+            {/* Date & Time */}
+            <div className="flex flex-col relative">
+              <label className="text-lg font-semibold mb-2">
+                Date & Time
+              </label>
+              <input
+                type="datetime-local"
+                value={dateTime}
+                required
+                onChange={(e) => setDateTime(e.target.value)}
+                className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
+              />
+              <svg
+                className="absolute right-3 top-11.5  w-5 h-5 text-gray-400 pointer-events-none"
+                fill="none"
+                stroke="black"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
                   <input
                     type="checkbox"
                     checked={productsUsed.includes(product)}
