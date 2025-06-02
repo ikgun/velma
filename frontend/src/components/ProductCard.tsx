@@ -17,23 +17,37 @@ export default function ProductCard(data: Product) {
   }
 
   return (
-    <div className="bg-red-300 p-4 rounded-md">
-      <p className="font-bold">Product Card</p>
-      <p>Name: {name}</p>
-      <p>Brand: {!brand ? "Brand not specified" : brand}</p>
-      <p>Type: {!type ? "Type not specified" : type}</p>
-      <p>Expiration date: {!expirationDate ? "Expiration date not specified" : expirationDate}</p>
+    <div className="bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
+      {/* Header */}
       <h2 className="text-lg sm:text-xl font-semibold mb-2">{data.name}</h2>
+
+      {/* Product Info */}
+      <div className="mb-4">
+        <p className="text-sm sm:text-base font-medium">Expiration Date:</p>
+        <p className="text-xs sm:text-sm text-gray-500">
           {data.expirationDate || 'Not specified'}
+        </p>
+      </div>
+
+      {/* Actions */}
       <form
         onSubmit={handleSubmit}
-        className="pt-2 flex flex-col sm:flex-row gap-2 justify-center"
+        className="mt-5 flex gap-3"
       >
         <Link
           to={'/products/$productId'}
-          params={{ productId: String(id) }}
-          className="text-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
           params={{ productId: String(data.id) }}
+          className="w-28
+                    flex items-center justify-center
+                    text-[#1f1f1f]
+                    font-bold
+                    bg-[#EBDED9]
+                    hover:bg-[#CEAEA1]
+                    py-2 px-4
+                    rounded-md
+                    transition
+                    duration-200
+                    ease-in-out"
         >
           See more
         </Link>
@@ -41,7 +55,7 @@ export default function ProductCard(data: Product) {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="cursor-pointer flex items-center justify-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer flex items-center justify-center bg-[#141414] hover:bg-[#5c5c5c] text-white font-semibold py-2 px-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg
             className="w-5 h-5"
