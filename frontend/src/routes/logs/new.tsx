@@ -18,6 +18,25 @@ function AddLogFormPage() {
   const [notes, setNotes] = useState('')
   const { mutate, isSuccess, error, isPending } = useCreateLog()
   const { data: products = [], isLoading } = useGetAllProducts()
+  const [productSearch, setProductSearch] = useState('')
+  const [filteredProducts, setFilteredProducts] = useState<Array<Product>>([])
+  const [dropdownVisible, setDropdownVisible] = useState(false)
+  // Filter products on search term
+  useEffect(() => {
+    if (!dropdownVisible) {
+      setFilteredProducts([])
+      return
+    }
+
+    if (productSearch.trim() === '') {
+      setFilteredProducts(products)
+    } else {
+      const filtered = products.filter((p: Product) =>
+        p.name.toLowerCase().startsWith(productSearch.toLowerCase()),
+      )
+      setFilteredProducts(filtered)
+    }
+  }, [productSearch, products, dropdownVisible])
 
   if (!isLoaded) {
     return <div className="p-4">Loading form...</div>
@@ -125,18 +144,40 @@ function AddLogFormPage() {
           </div>
         )}
 
-        <label>
-          Notes:
-          <input
-            type="text"
-            name="text"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-          />
-        </label>
-        <input type="submit" value="Send" />
-      </form>
+            {/* Notes */}
+            <div className="flex flex-col">
+              <label className="text-lg font-semibold mb-2">Notes</label>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                rows={4}
+                className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+                placeholder="Write anything important about this log..."
+              />
+            </div>
+
+            {/* Errors */}
+            {(validationError || error) && (
+              <p className="font-bold text-red-500 text-sm">
+                {validationError ||
+                  (error?.message === 'Failed to fetch'
+                    ? 'Failed to fetch log form'
+                    : error?.message)}
+              </p>
+            )}
+
+            <div className="flex justify-end">
+              <button
+                type="submit"
                 disabled={isPending}
+                className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] transition-colors w-full sm:w-auto"
+              >
+                Save Log
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </SignedIn>
   )
 }
