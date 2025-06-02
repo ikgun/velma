@@ -147,7 +147,7 @@ export default function EditLogModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative">
+      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl mx-auto text-[#141414] font-old">
         <button
           onClick={handleCancel}
           className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold cursor-pointer"
@@ -163,22 +163,7 @@ export default function EditLogModal({
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-          <label
-            htmlFor="title"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Date & Time
-            <input
-              type="datetime-local"
-              id="title"
-              className="mt-1 border border-gray-300 rounded-md p-2  text-gray-900 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none"
-              placeholder="Title"
-              value={newDateTime}
-              onChange={(e) => setNewDateTime(e.target.value)}
-            />
-          </label>
-
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Routine Type */}
           <fieldset>
             <legend className="text-lg font-semibold mb-2">Routine Type</legend>
