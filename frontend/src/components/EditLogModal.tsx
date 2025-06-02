@@ -1,6 +1,7 @@
 import { enUS } from 'date-fns/locale'
 import { format } from 'date-fns'
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
 import type { Product } from '@/types'
 import { useUpdateLog } from '@/hooks/log/useUpdateLog'
@@ -110,6 +111,24 @@ export default function EditLogModal({
     if (mutation.error) {
       console.log(mutation.error.message)
     }
+    mutation.mutate(
+      {
+        id,
+        requestBody: {
+          dateTime: newDateTime,
+          routineType: newRoutineType,
+          productsUsed: newProductsUsed,
+          notes: newNotes,
+        },
+      },
+      {
+        onSuccess: () => {
+          toast.success('Log updated successfully!')
+          dialogRef.current?.close()
+          onClose()
+        },
+      }
+    )
   }
 
   const handleCancel = () => {
