@@ -33,34 +33,31 @@ export default function LogCard(data: Log) {
         </p>
       </div>
 
-      <div>
-        <p className="font-medium">Products Used:</p>
-        {productsUsed && productsUsed.length > 0 ? (
-          <ul className="list-disc list-inside text-gray-700">
-            {productsUsed.map((p: Product) => (
-              <li key={p.id}>{p.name}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-gray-400 italic">There are no products in this log!</p>
-        )}
+      {/* Routine Info */}
+      <div className="mt-3">
+        <p className="text-sm sm:text-base font-medium">Routine Type:</p>
         <p className="text-sm sm:text-base text-gray-700">{data.routineType}</p>
       </div>
 
-      <div>
-        <p className="font-medium">Routine Type:</p>
-        <p className="text-gray-700">{routineType}</p>
-      </div>
-
+      {/* Actions */}
       <form
         onSubmit={handleSubmit}
-        className="pt-2 flex flex-col sm:flex-row gap-2 justify-center"
+        className="mt-5 flex gap-3"
       >
         <Link
           to={'/logs/$logId'}
-          params={{ logId: String(id) }}
-          className="text-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
           params={{ logId: String(data.id) }}
+          className="w-28
+                    flex items-center justify-center
+                    text-[#1f1f1f]
+                    font-bold
+                    bg-[#EBDED9]
+                    hover:bg-[#CEAEA1]
+                    py-2 px-4
+                    rounded-md
+                    transition
+                    duration-200
+                    ease-in-out"
         >
           See more
         </Link>
@@ -68,7 +65,7 @@ export default function LogCard(data: Log) {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="cursor-pointer flex items-center justify-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="cursor-pointer flex items-center justify-center bg-[#141414] hover:bg-[#5c5c5c] text-white font-semibold py-2 px-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg
             className="w-5 h-5"
