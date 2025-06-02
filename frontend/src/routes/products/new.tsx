@@ -38,6 +38,10 @@ function AddProductFormPage() {
     }
   }, [isSuccess])
 
+  if (!isLoaded)
+    return <div className="p-4 text-[#141414]">Loading user...</div>
+  if (!isSignedIn)
+    return <div className="p-4 text-[#141414]">Sign in to view this page</div>
 
     if (error) {
       console.log(error.message)
