@@ -16,7 +16,7 @@ function AddLogFormPage() {
   const [routineType, setRoutineType] = useState('')
   const [productsUsed, setProductsUsed] = useState<Array<Product>>([])
   const [notes, setNotes] = useState('')
-  const { mutate, isSuccess, error } = useCreateLog()
+  const { mutate, isSuccess, error, isPending } = useCreateLog()
   const { data: products = [], isLoading } = useGetAllProducts()
 
   if (!isLoaded) {
@@ -136,6 +136,7 @@ function AddLogFormPage() {
         </label>
         <input type="submit" value="Send" />
       </form>
+                disabled={isPending}
     </SignedIn>
   )
 }
