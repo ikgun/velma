@@ -11,6 +11,11 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
   const hasProducts = products && products.length > 0
   const lastThree = hasProducts ? products.slice(-3).reverse() : []
 
+  return (
+    <div className="py-5">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4">
+        Your latest added products
+      </h1>
 
       <div className="flex gap-2 w-90 sm:w-100 h-10 mb-6">
         <Link
