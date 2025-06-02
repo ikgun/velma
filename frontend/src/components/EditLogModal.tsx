@@ -126,11 +126,17 @@ export default function EditLogModal({
     onClose()
   }
 
-  const toggleProduct = (selectedProduct: Product) => {
-    setNewProductsUsed((existingProducts) =>
-      existingProducts.some((p) => p.id === selectedProduct.id)
-        ? existingProducts.filter((p) => p.id !== selectedProduct.id)
-        : [...existingProducts, selectedProduct],
+  const addProduct = (product: Product) => {
+    if (!newProductsUsed.find((p) => p.id === product.id)) {
+      setNewProductsUsed([...newProductsUsed, product])
+    }
+    setProductSearch('')
+    setDropdownVisible(false)
+  }
+
+  const removeProduct = (productId: string) => {
+    setNewProductsUsed(
+      newProductsUsed.filter((p) => String(p.id) !== productId),
     )
   }
 
