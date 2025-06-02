@@ -1,10 +1,10 @@
 import { Link } from '@tanstack/react-router'
 import { useUser } from '@clerk/clerk-react'
-import ClerkHeader from '../integrations/clerk/header-user'
+import ClerkUser from '../integrations/clerk/header-user'
 
 export default function Header() {
   const { isSignedIn } = useUser()
-  const homeOrDash = isSignedIn ? 'Dashboard' : 'Home'
+
   return (
     <nav className="bg-[#1f1f1f] text-white shadow-sm px-4 py-4 font-old sticky top-0 z-50">
       <div className="flex items-center justify-between mx-auto p-3 max-w-screen-xl">
@@ -30,6 +30,7 @@ export default function Header() {
           </svg>
           <span className="text-xl font-semibold">Velma</span>
         </Link>
+
         {/* Desktop Nav */}
         {isSignedIn && (
           <ul className="hidden md:flex flex-row items-center justify-center gap-2 text-sm font-medium ml-5">
@@ -56,5 +57,11 @@ export default function Header() {
             </li>
           </ul>
         )}
+
+        {/* User on desktop */}
+        <div className="hidden md:block ml-auto">
+          <ClerkUser />
+        </div>
+
   )
 }
