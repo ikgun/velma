@@ -2,11 +2,11 @@ spring:
   application:
     name: Velma
   config:
-    import: "optional:classpath:env.properties"
+    import: "optional:classpath:../../../.env"
   datasource:
-    url: ${POSTGRES_LOCATION}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
   jpa:
     show-sql: true
     defer-datasource-initialization: true
