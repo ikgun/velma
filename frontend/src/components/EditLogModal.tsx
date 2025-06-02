@@ -40,10 +40,12 @@ export default function EditLogModal({
   const mutation = useUpdateLog()
   const { data: products = [] } = useGetAllProducts()
 
+  // Show modal on mount
   useEffect(() => {
     dialogRef.current?.showModal()
   }, [])
 
+  // Close modal on successful mutation
   useEffect(() => {
     if (mutation.isSuccess) {
       dialogRef.current?.close()
@@ -51,6 +53,7 @@ export default function EditLogModal({
     }
   }, [mutation.isSuccess])
 
+  // Filter products based on search & dropdown visibility
   useEffect(() => {
     if (!dropdownVisible) {
       setFilteredProducts([])
@@ -98,19 +101,6 @@ export default function EditLogModal({
       return
     }
 
-    mutation.mutate({
-      id,
-      requestBody: {
-        dateTime: newDateTime,
-        routineType: newRoutineType,
-        productsUsed: newProductsUsed,
-        notes: newNotes,
-      },
-    })
-
-    if (mutation.error) {
-      console.log(mutation.error.message)
-    }
     mutation.mutate(
       {
         id,
