@@ -1,5 +1,8 @@
+import type { Product } from '@/types'
 
-import ProductCard from "./ProductCard";
+type ProductsSectionProps = {
+  products: Array<Product>
+}
 
 export default function ProductsSection(){
     return(
@@ -12,4 +15,5 @@ export default function ProductsSection(){
         </div>
         </>
     )
+export default function ProductsSection({ products }: ProductsSectionProps) {
 }
