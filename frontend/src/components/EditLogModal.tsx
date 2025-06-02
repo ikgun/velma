@@ -187,43 +187,66 @@ export default function EditLogModal({
             </div>
           </fieldset>
 
-          <h2 className="text-lg font-bold">Select Products Used</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {products && products.length > 0 ? (
-              products.map((product: Product) => (
-                <label
+          {/* Products Used */}
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Products Used</h2>
+
+            <div className="flex flex-wrap gap-2 mb-2">
+              {newProductsUsed.map((product) => (
+                <span
                   key={product.id}
-                  className="flex items-center gap-2 p-3 border rounded hover:bg-gray-50 cursor-pointer"
+                  className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm"
                 >
-                  <input
-                    type="checkbox"
-                    checked={newProductsUsed.some((p) => p.id === product.id)}
-                    onChange={() => toggleProduct(product)}
-                  />
-                  <span>
-                    {product.name} – {product.brand}
-                  </span>
-                </label>
-              ))
-            ) : (
-              <p className="text-gray-400 italic">No products to select.</p>
-            )}
+                  {product.name}
+                  <button
+                    type="button"
+                    onClick={() => removeProduct(String(product.id))}
+                    className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                  >
+                    &times;
+                  </button>
+                </span>
+              ))}
+            </div>
+
+            <div className="relative" ref={dropdownRef}>
+              <input
+                ref={inputRef}
+                type="text"
+                value={productSearch}
+                onFocus={() => setDropdownVisible(true)}
+                onChange={(e) => setProductSearch(e.target.value)}
+                placeholder="Type to search and add products"
+                className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
+                autoComplete="off"
+              />
+              {dropdownVisible && filteredProducts.length > 0 && (
+                <ul className="absolute z-10 bg-white border rounded shadow max-h-48 overflow-auto w-full mt-1">
+                  {filteredProducts.map((product) => (
+                    <li
+                      key={product.id}
+                      className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                      onClick={() => addProduct(product)}
+                    >
+                      {product.name} – {product.brand}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
-          <label
-            htmlFor="notes"
-            className="flex flex-col text-gray-700 font-medium"
-          >
-            Notes
-            <input
-              type="text"
-              id="notes"
-              className="mt-1 border border-gray-300 rounded-md p-2 text-gray-900 focus:border-amber-600 focus:ring-1 focus:ring-amber-600 outline-none"
-              placeholder="notes"
+          {/* Notes */}
+          <div className="flex flex-col">
+            <label className="text-lg font-semibold mb-2">Notes</label>
+            <textarea
+              rows={4}
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none"
+              placeholder="Write anything important about this log..."
               value={newNotes}
               onChange={(e) => setNewNotes(e.target.value)}
             />
-          </label>
+          </div>
 
           {(validationError || mutation.error) && (
             <p className="font-bold text-red-500 text-sm">
