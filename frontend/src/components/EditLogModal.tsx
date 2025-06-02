@@ -248,6 +248,7 @@ export default function EditLogModal({
             />
           </div>
 
+          {/* Errors */}
           {(validationError || mutation.error) && (
             <p className="font-bold text-red-500 text-sm">
               {validationError
@@ -258,18 +259,19 @@ export default function EditLogModal({
             </p>
           )}
 
+          {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end sm:gap-4 gap-2 mt-4">
             <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded-lg transition"
+              className="bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2 px-4 rounded transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Save
             </button>
