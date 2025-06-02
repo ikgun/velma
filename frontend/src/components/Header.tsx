@@ -63,5 +63,12 @@ export default function Header() {
           <ClerkUser />
         </div>
 
+        {!isSignedIn && (
+          <>
+            <div className="md:hidden ml-auto">
+              <ClerkUser />
+            </div>
+          </>
+        )}
   )
 }
