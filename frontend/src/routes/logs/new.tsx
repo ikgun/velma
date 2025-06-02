@@ -84,18 +84,24 @@ function AddLogFormPage() {
     }
 
     mutate({ dateTime, routineType, productsUsed, notes })
+  }
 
+  // Effect to react to mutation success or error
+  useEffect(() => {
     if (isSuccess) {
+      toast.success('New log created successfully!')
       setDateTime('')
       setRoutineType('')
       setProductsUsed([])
       setNotes('')
+      setValidationError('')
     }
-
     if (error) {
-      console.log(error.message)
+      toast.error(error.message || 'Failed to create log.')
     }
   }
+  }, [isSuccess, error])
+
 
   return (
     <SignedIn>
