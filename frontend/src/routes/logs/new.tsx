@@ -212,19 +212,61 @@ function AddLogFormPage() {
                 ))}
               </div>
             </fieldset>
+
+            {/* Products Used */}
+            <div>
+              <h2 className="text-lg font-semibold mb-2">Products Used</h2>
+              {isLoading ? (
+                <p className="text-gray-500">Loading your products...</p>
+              ) : products.length === 0 ? (
+                <p className="text-gray-500">
+                  Create some products to add to your log!
+                </p>
+              ) : (
+                <div className="relative" ref={dropdownRef}>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {productsUsed.map((product) => (
+                      <span
+                        key={product.id}
+                        className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm"
+                      >
+                        {product.name}
+                        <button
+                          type="button"
+                          onClick={() => removeProduct(String(product.id))}
+                          className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
                   <input
-                    type="checkbox"
-                    checked={productsUsed.includes(product)}
-                    onChange={() => toggleProduct(product)}
+                    ref={inputRef}
+                    type="text"
+                    value={productSearch}
+                    onFocus={() => setDropdownVisible(true)}
+                    onChange={(e) => setProductSearch(e.target.value)}
+                    placeholder="Type to search and add products"
+                    className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
+                    autoComplete="off"
                   />
-                  <span>
-                    {product.name} – {product.brand}
-                  </span>
-                </label>
-              ))}
+                  {dropdownVisible && filteredProducts.length > 0 && (
+                    <ul className="absolute z-10 bg-white border rounded shadow max-h-48 overflow-y-auto w-full mt-1">
+                      {filteredProducts.map((product) => (
+                        <li
+                          key={product.id}
+                          className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                          onClick={() => addProduct(product)}
+                        >
+                          {product.name} – {product.brand}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
-          </div>
-        )}
 
             {/* Notes */}
             <div className="flex flex-col">
