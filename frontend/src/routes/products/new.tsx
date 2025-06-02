@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SignedIn, useUser } from '@clerk/clerk-react'
+import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
 import { useCreateProduct } from '@/hooks/product/useCreateProduct'
 
@@ -27,14 +28,16 @@ function AddProductFormPage() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
-    mutate({ name, brand, type, expirationDate })
-
+  useEffect(() => {
     if (isSuccess) {
+      toast.success('New product created successfully!')
       setName('')
       setBrand('')
       setType('')
       setExpirationDate('')
     }
+  }, [isSuccess])
+
 
     if (error) {
       console.log(error.message)
