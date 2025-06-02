@@ -6,10 +6,10 @@ import ClerkProvider from '../integrations/clerk/provider.tsx'
 import Footer from '@/components/Footer.tsx'
 
 export const Route = createRootRoute({
-  component: Root
+  component: Root,
 })
 
-function Root(){
+function Root() {
   return (
     <>
       <ToastContainer
