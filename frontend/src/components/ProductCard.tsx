@@ -3,18 +3,14 @@ import type { Product as ProductCardProps } from '@/types'
 import type { FormEvent } from 'react'
 import { useDeleteProduct } from '@/hooks/product/useDeleteProduct'
 
-export default function ProductCard({
-  id,
-  name,
-  brand,
-  type,
-  expirationDate,
-}: ProductCardProps) {
+export default function ProductCard(data: Product) {
   const mutation = useDeleteProduct()
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     mutation.mutate(id)
+    mutation.mutate(data.id, {
   }
   return (
     <div className="bg-red-300 p-4 rounded-md">
@@ -23,6 +19,8 @@ export default function ProductCard({
       <p>Brand: {!brand ? "Brand not specified" : brand}</p>
       <p>Type: {!type ? "Type not specified" : type}</p>
       <p>Expiration date: {!expirationDate ? "Expiration date not specified" : expirationDate}</p>
+      <h2 className="text-lg sm:text-xl font-semibold mb-2">{data.name}</h2>
+          {data.expirationDate || 'Not specified'}
       <form
         onSubmit={handleSubmit}
         className="pt-2 flex flex-col sm:flex-row gap-2 justify-center"
@@ -31,6 +29,7 @@ export default function ProductCard({
           to={'/products/$productId'}
           params={{ productId: String(id) }}
           className="text-center bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition"
+          params={{ productId: String(data.id) }}
         >
           See more
         </Link>
