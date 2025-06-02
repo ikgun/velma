@@ -70,5 +70,57 @@ export default function Header() {
             </div>
           </>
         )}
+
+        {isSignedIn && (
+          <div className="md:hidden ml-auto">
+            <div className="drawer drawer-end">
+              <input
+                id="mobile-drawer"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+                <label htmlFor="mobile-drawer" className="drawer-button px-2">
+                  <svg
+                    className="w-6 h-6"
+                    viewBox="0 0 17 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      d="M1 1h15M1 7h15M1 13h15"
+                    />
+                  </svg>
+                </label>
+              </div>
+              <div className="drawer-side z-50">
+                <label
+                  htmlFor="mobile-drawer"
+                  className="drawer-overlay"
+                ></label>
+                <ul className="menu items-center justify-center  w-40 min-h-full bg-[#1f1f1f] text-white space-y-2">
+                  <>
+                    <li>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                      <Link to="/logs">Logs</Link>
+                    </li>
+                    <li>
+                      <Link to="/products">Products</Link>
+                    </li>
+                    <li className="pt-4">
+                      <ClerkUser />
+                    </li>
+                  </>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   )
 }
