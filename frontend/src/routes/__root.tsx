@@ -3,6 +3,7 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { ToastContainer } from 'react-toastify'
 import Header from '../components/Header.tsx'
 import ClerkProvider from '../integrations/clerk/provider.tsx'
+import Footer from '@/components/Footer.tsx'
 
 export const Route = createRootRoute({
   component: Root
@@ -27,6 +28,7 @@ function Root(){
       <ClerkProvider>
         <Header />
         <Outlet />
+        <Footer />
         <TanStackRouterDevtools />
       </ClerkProvider>
     </>
