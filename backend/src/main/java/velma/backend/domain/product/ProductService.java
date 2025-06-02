@@ -20,14 +20,13 @@ public class ProductService {
         this.logRepository = logRepository;
     }
 
-    public Product getById(Long productId) {
-
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Product with ID " + productId + " not found."));
+    public Product getById(String userId, Long productId) {
+        return productRepository.findByUserIdAndId(userId,productId)
+                .orElseThrow(() -> new NoSuchElementException("Log with ID " + productId + " not found."));
     }
 
-    public List<Product> listAll() {
-        return productRepository.findAll();
+    public List<Product> listAll(String userId) {
+        return productRepository.findAllByUserId(userId);
     }
 
 //    public List<Log> listAllByQuery(String queryTerm) {
@@ -62,25 +61,25 @@ public class ProductService {
         return newProduct;
     }
 
-    public Product updateProduct(Product product) {
+    public Product updateProduct(Long productId, String name, String brand, String type, LocalDate expirationDate, String userId) {
+        Product existingProduct = getById(userId, productId);
 
-        Product updatedProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new NoSuchElementException("Product with ID " + product.getId() + " not found."));
+        existingProduct.setName(name);
+        existingProduct.setBrand(brand);
+        existingProduct.setExpirationDate(expirationDate);
+        existingProduct.setType(type);
 
-        productRepository.save(updatedProduct);
-        return updatedProduct;
+        return productRepository.save(existingProduct);
     }
 
-    public void deleteProduct(Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Product with ID " + productId + " not found."));
-        // Pseudocode
+    public void deleteProduct(String userId, Long productId) {
+        Product product = getById(userId, productId);
         List<Log> logsContainingProduct = logRepository.findLogsByProductsUsedContaining(List.of(product));
         for (Log log : logsContainingProduct) {
             log.getProductsUsed().remove(product);
             logRepository.save(log);
         }
-        productRepository.deleteById(productId);
+        productRepository.delete(product);
     }
 
 }
