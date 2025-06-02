@@ -1,6 +1,8 @@
 import { createFileRoute, useParams } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
+import { format } from 'date-fns'
+import { enUS } from 'date-fns/locale'
 import type { Product } from '@/types'
 import { useGetLog } from '@/hooks/log/useGetLog'
 import EditLogModal from '@/components/EditLogModal'
@@ -14,6 +16,11 @@ function LogPage() {
   const { isSignedIn, isLoaded } = useUser()
   const { data, isPending, error } = useGetLog(logId)
   const [showEditLog, setShowEditLog] = useState(false)
+
+  function formatCustomDate(dateStr: string) {
+    const date = new Date(dateStr)
+    return format(date, "EEEE, do 'of' MMMM 'at' HH:mm", { locale: enUS })
+  }
 
   if (!isLoaded) {
     return <div className="p-4">Loading...</div>
@@ -64,6 +71,7 @@ function LogPage() {
             </p>
           )}
         </section>
+            Created at {formatCustomDate(data.dateTime)}
 
         <section>
           <h2 className="text-lg font-semibold text-gray-700 mb-2">
