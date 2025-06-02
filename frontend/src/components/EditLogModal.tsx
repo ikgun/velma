@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import { enUS } from 'date-fns/locale'
+import { format } from 'date-fns'
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import type { Product } from '@/types'
@@ -79,6 +80,11 @@ export default function EditLogModal({
     )
   }
 
+  function formatCustomDate(dateStr: string) {
+    const date = new Date(dateStr)
+    return format(date, "EEEE, do 'of' MMMM 'at' HH:mm", { locale: enUS })
+  }
+
   return (
     <dialog ref={dialogRef} className="modal">
       <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative">
@@ -93,6 +99,7 @@ export default function EditLogModal({
         <h3 className="text-2xl  text-[#252422] text-center font-semibold mb-6">
           Edit Log
         </h3>
+            Created at {formatCustomDate(oldDateTime)}
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <label
