@@ -179,38 +179,27 @@ export default function EditLogModal({
             />
           </label>
 
+          {/* Routine Type */}
           <fieldset>
-            <legend className="font-medium mb-2">Routine Type:</legend>
-            <label className="mr-4">
-              <input
-                type="radio"
-                name="routine"
-                value="Morning"
-                checked={newRoutineType === 'Morning'}
-                onChange={(e) => setNewRoutineType(e.target.value)}
-              />
-              <span className="ml-1">Morning</span>
-            </label>
-            <label className="mr-4">
-              <input
-                type="radio"
-                name="routine"
-                value="Evening"
-                checked={newRoutineType === 'Evening'}
-                onChange={(e) => setNewRoutineType(e.target.value)}
-              />
-              <span className="ml-1">Evening</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="routine"
-                value="Unspecified"
-                checked={newRoutineType === 'Unspecified'}
-                onChange={(e) => setNewRoutineType(e.target.value)}
-              />
-              <span className="ml-1">Unspecified</span>
-            </label>
+            <legend className="text-lg font-semibold mb-2">Routine Type</legend>
+            <div className="flex gap-6">
+              {['Morning', 'Evening', 'Unspecified'].map((value) => (
+                <label
+                  key={value}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="routine"
+                    value={value}
+                    checked={newRoutineType === value}
+                    onChange={(e) => setNewRoutineType(e.target.value)}
+                    className="cursor-pointer"
+                  />
+                  {value}
+                </label>
+              ))}
+            </div>
           </fieldset>
 
           <h2 className="text-lg font-bold">Select Products Used</h2>
