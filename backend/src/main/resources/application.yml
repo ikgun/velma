@@ -2,7 +2,7 @@ spring:
   application:
     name: Velma
   config:
-    import: "classpath:env.properties"
+    import: "optional:classpath:env.properties"
   datasource:
     url: ${POSTGRES_LOCATION}
     username: ${POSTGRES_USER}
