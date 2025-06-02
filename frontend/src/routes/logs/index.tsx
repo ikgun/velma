@@ -14,6 +14,7 @@ function LogsPage() {
 
   if (!isLoaded) {
     return <div className="p-4">Loading user...</div>
+        <span className="loading loading-dots loading-xl"></span>
   }
 
   if (!isSignedIn) {
@@ -40,6 +41,7 @@ function LogsPage() {
       </div>
     )
   }
+            <span className="loading loading-dots loading-xl"></span>
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
