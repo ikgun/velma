@@ -1,29 +1,58 @@
-# Stage 1: Build the frontend with Node.js
-FROM node:23 AS builder
+FROM node:23 AS build
 
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
-COPY .env.production .env
+
+ARG VITE_CLERK_PUBLISHABLE_KEY
+ENV VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY}
+
+RUN echo THE VAL IS $VITE_CLERK_PUBLISHABLE_KEY
+
 RUN npm run build
 
-# Stage 2: Serve with NGINX
 FROM nginx:alpine
 
-# Copy custom nginx config into container
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built frontend from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose NGINX port
 EXPOSE 8080
 
-# Run NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
+
+
+
+## Stage 1: Build the frontend with Node.js
+#FROM node:23 AS builder
+#
+#WORKDIR /app
+#
+#COPY package*.json ./
+#RUN npm install
+#
+#COPY . .
+#COPY .env.production .env
+#RUN npm run build
+#
+## Stage 2: Serve with NGINX
+#FROM nginx:alpine
+#
+## Copy custom nginx config into container
+#COPY nginx.conf /etc/nginx/conf.d/default.conf
+#
+## Copy built frontend from builder stage
+#COPY --from=builder /app/dist /usr/share/nginx/html
+#
+## Expose NGINX port
+#EXPOSE 8080
+#
+## Run NGINX in the foreground
+#CMD ["nginx", "-g", "daemon off;"]
 
 
 
