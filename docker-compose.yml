@@ -36,7 +36,7 @@ services:
   #      - ./frontend:/app
   #      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
   #    env_file:
-  #      - ./frontend/.env.local
+  #      - ./frontend/.env
   #    restart: on-failure
 
   velma-frontend:
@@ -50,6 +50,6 @@ services:
     ports:
       - "3000:80"  # Host:Container — expose NGINX port on 3000
     env_file:
-      - ./frontend/.env.local
+      - frontend/.env
 
 

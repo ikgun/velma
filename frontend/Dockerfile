@@ -7,6 +7,8 @@ WORKDIR /app
 ARG VITE_CLERK_PUBLISHABLE_KEY
 # Set it as an environment variable so Vite can read it during build
 ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
+RUN echo "VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY"
+
 
 COPY package*.json ./
 RUN npm install
