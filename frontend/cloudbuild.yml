@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t', 'gcr.io/$PROJECT_ID/velma-frontend',
+        '--build-arg', 'VITE_CLERK_PUBLISHABLE_KEY=${_VITE_CLERK_PUBLISHABLE_KEY}',
+        '.'
+      ]
+    dir: frontend
+images:
+  - 'gcr.io/$PROJECT_ID/velma-frontend'
