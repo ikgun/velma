@@ -1,8 +1,8 @@
 spring:
   application:
     name: Velma
-  config:
-    import: "optional:file:.env"
+#  config:
+#    import: "optional:file:.env"
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
