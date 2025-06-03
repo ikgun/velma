@@ -48,7 +48,7 @@ services:
     image: velma-frontend
     container_name: velma-frontend
     ports:
-      - "3000:80"  # Host:Container — expose NGINX port on 3000
+      - "3000:8080"  # Host:Container — expose NGINX port on 3000
     env_file:
       - frontend/.env
 

@@ -3,17 +3,11 @@ FROM node:23 AS builder
 
 WORKDIR /app
 
-# Accept the Clerk publishable key as a build argument
-ARG VITE_CLERK_PUBLISHABLE_KEY
-# Set it as an environment variable so Vite can read it during build
-ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
-RUN echo "VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY"
-
-
 COPY package*.json ./
 RUN npm install
 
 COPY . .
+COPY .env.production .env
 RUN npm run build
 
 # Stage 2: Serve with NGINX
@@ -26,10 +20,11 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose NGINX port
-EXPOSE 80
+EXPOSE 8080
 
 # Run NGINX in the foreground
 CMD ["nginx", "-g", "daemon off;"]
+
 
 
 
@@ -110,7 +105,7 @@ CMD ["nginx", "-g", "daemon off;"]
 #AMANDAS
 #FROM node:18 AS build
 #WORKDIR /app
-#COPY .env.production .env
+#COPY ..env.production .env
 #COPY package*.json ./
 #RUN npm install
 #COPY . .
