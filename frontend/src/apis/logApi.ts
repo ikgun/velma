@@ -1,6 +1,7 @@
 import type { Product } from '@/types'
 
-const API_URL = 'http://localhost:8080/api/logs'
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/logs`
+
 
 // GET request to /api/logs
 export async function getAllLogs(token: string) {
@@ -11,8 +12,7 @@ export async function getAllLogs(token: string) {
       Authorization: `Bearer ${token}`,
     },
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // GET request to /api/logs/{id}
@@ -24,8 +24,7 @@ export async function getLog(id: string, token: string) {
       Authorization: `Bearer ${token}`,
     },
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // //GET request to /api/recipes/search?query={query}
@@ -53,8 +52,7 @@ export async function createLog(
     },
     body: JSON.stringify(requestBody),
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // PUT request to /api/logs/{id}
@@ -76,8 +74,7 @@ export async function updateLog(
     },
     body: JSON.stringify(requestBody),
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // DELETE request to /api/logs/{id}

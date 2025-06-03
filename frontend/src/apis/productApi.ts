@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/api/products'
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/products`
 
 // GET request to /api/products
 export async function getAllProducts(token: string) {
@@ -13,8 +13,7 @@ export async function getAllProducts(token: string) {
     const errorText = await response.text()
     throw new Error(errorText)
   }
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // GET request to /api/products/{id}
@@ -26,8 +25,7 @@ export async function getProduct(id: string, token: string) {
       Authorization: `Bearer ${token}`,
     },
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // //GET request to /api/recipes/search?query={query}
@@ -55,8 +53,7 @@ export async function createProduct(
     },
     body: JSON.stringify(requestBody),
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // PUT request to /api/products/id
@@ -78,8 +75,7 @@ export async function updateProduct(
     },
     body: JSON.stringify(requestBody),
   })
-  const data = await response.json()
-  return data
+  return await response.json()
 }
 
 // DELETE request to /api/products/{id}
