@@ -18,6 +18,7 @@ function LogsPage() {
   const { data, isPending, error } = useGetAllLogs()
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [hasClicked, setHasClicked] = useState(false)
+  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
 
   if (!isLoaded) {
     return (
@@ -59,7 +60,15 @@ function LogsPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
       <div className="m-10">
-        <h1 className="text-2xl font-semibold mb-5">Your Log History</h1>
+        <h1 className="text-2xl font-semibold mb-2">Your Log History</h1>
+
+        {!error && !isPending && sortedLogs?.length > 0 && (
+          <p className="mb-4 text-gray-700 text-sm">
+            {viewMode === 'calendar'
+              ? 'Click on a day on the calendar to see your logs.'
+              : 'Viewing all logs.'}
+          </p>
+        )}
 
         {isPending && (
           <div className="flex gap-2 items-center justify-center text-center min-h-[300px]">
@@ -157,6 +166,25 @@ function LogsPage() {
               }}
               className="my-5 text-center"
             />
+            <div className=" flex flex-row text-sm mt-4 text-center mb-4">
+              <button
+                className={`hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 px-2 py-1 rounded ${
+                  viewMode === 'list' ? 'bg-gray-200 ' : 'bg-transparent'
+                }`}
+                onClick={() => setViewMode('list')}
+              >
+                List
+              </button>
+              <p className="text-xl font-bold">|</p>
+              <button
+                className={`hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 px-2 py-1 rounded ${
+                  viewMode === 'calendar' ? 'bg-gray-200' : 'bg-transparent'
+                }`}
+                onClick={() => setViewMode('calendar')}
+              >
+                Calendar
+              </button>
+            </div>
 
             {hasClicked &&
               (logsForSelectedDay && logsForSelectedDay.length > 0 ? (
