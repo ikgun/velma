@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useUser } from '@clerk/clerk-react'
+import bgImage from '../background.png'
 import LogsSection from '@/components/LogsSection'
 import ProductsSection from '@/components/ProductsSection'
 import { useGetAllLogs } from '@/hooks/log/useGetAllLogs'
@@ -41,7 +42,10 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-old text-[#141414]">
+    <div
+      style={{ backgroundImage: `url(${bgImage})` }}
+      className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
+    >
       <div className="px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-10">
         {/* Greeting */}
         <p className="text-5xl mt-5 mb-3 sm:mt-0 sm:mb-0">

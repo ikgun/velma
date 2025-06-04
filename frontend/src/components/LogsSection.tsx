@@ -21,7 +21,7 @@ export default function LogsSection({ logs }: LogsSectionProps) {
       <div className="flex gap-2 w-90 h-10 mb-6">
         <Link
           to="/logs/new"
-          className="bg-[#141414] text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors duration-200 w-full text-center"
+          className="bg-[#351C24] text-white px-4 py-2 rounded hover:bg-[#502A36] transition-colors duration-200 w-full text-center"
         >
           + Add New Log
         </Link>
@@ -29,7 +29,7 @@ export default function LogsSection({ logs }: LogsSectionProps) {
         
           <Link
             to="/logs"
-            className="flex items-center justify-left px-4 py-2 rounded text-sm font-medium text-[#141414] hover:bg-gray-200 transition-colors duration-200 block w-full"
+            className="flex items-center justify-left px-4 py-2 rounded text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
           >
             See all of your logs
             <svg

@@ -90,7 +90,7 @@ export default function CalendarComp({
                 new Date(date).setHours(0, 0, 0, 0),
               ),
             )
-            return `hover:cursor-pointer hover:bg-gray-200 border transition-colors duration-200 border-black h-16 w-16 sm:h-20 sm:w-20
+            return `rounded-xl hover:cursor-pointer hover:bg-gray-200 bg-[#F5F5F5] border border-[#5E5345] transition-colors duration-200 border-black h-16 w-16 sm:h-20 sm:w-20
            flex items-center justify-center ${hasLog ? 'relative' : ''}`
           }}
           tileContent={({ date, view }) => {
@@ -104,13 +104,13 @@ export default function CalendarComp({
 
             return (
               <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                <span className="bg-[#E59E8B] text-white text-xs text-center p-1 rounded-2xl">
+                <span className="bg-[#832035] text-white text-xs text-center p-1 rounded-2xl">
                   {logsOnDate.length}
                 </span>
               </div>
             )
           }}
-          className=" my-4 text-center sm:w-150"
+          className=" my-4 text-center sm:w-150" 
         />
 
         {logsForSelectedDay && logsForSelectedDay.length > 0 ? (
@@ -129,14 +129,14 @@ export default function CalendarComp({
                   <LogCard key={log.id} {...log} />
                 ))
               ) : (
-                <p className="text-gray-500 mt-10 mb-5">
+                <p className="text-gray-100 font-bold mt-10 mb-5">
                   No logs found for selected products.
                 </p>
               )}
             </div>
           </div>
         ) : (
-          <p className="text-gray-500 mt-6 sm:mt-20 mb-20 flex items-center justify-center text-center">
+          <p className="text-gray-100 font-bold mt-6 sm:mt-20 mb-20 flex items-center justify-center text-center">
             No logs for this day.
           </p>
         )}

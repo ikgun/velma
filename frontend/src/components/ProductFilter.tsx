@@ -78,7 +78,7 @@ export default function ProductFilter({
           {selectedProducts.map((product) => (
             <span
               key={product.id}
-              className="flex items-center bg-gray-200 rounded-full px-3 py-1 text-sm"
+              className="flex items-center bg-gray-100 rounded-full px-3 py-1 mt-1 text-sm"
             >
               {product.name}
               <button
@@ -99,7 +99,7 @@ export default function ProductFilter({
           onFocus={() => setDropdownVisible(true)}
           onChange={(e) => setProductSearch(e.target.value)}
           placeholder="Type a product to filter logs"
-          className="border rounded px-3 py-2 bg-gray-50 focus:outline-none w-full sm:w-1/2 focus:ring-2 focus:ring-black "
+          className="shadow-md rounded px-3 py-2 bg-[#F5F5F5] focus:outline-none w-full sm:w-1/2 focus:ring-2 focus:ring-black "
           autoComplete="off"
         />
         {dropdownVisible && filteredProducts.length > 0 && (

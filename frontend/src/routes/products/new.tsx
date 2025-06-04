@@ -2,6 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 import { toast } from 'react-toastify'
+
+import bgImage from '../../background.png'
 import type { FormEvent, Key } from 'react'
 import { useCreateProduct } from '@/hooks/product/useCreateProduct'
 
@@ -84,10 +86,21 @@ function AddProductFormPage() {
     }
   }, [isSuccess])
 
-  if (!isLoaded)
-    return <div className="p-4 text-[#141414]">Loading user...</div>
-  if (!isSignedIn)
-    return <div className="p-4 text-[#141414]">Sign in to view this page</div>
+   if (!isLoaded) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    )
+  }
+ if (!isSignedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <p className="text-lg mb-4">Sign in to view this page</p>
+      </div>
+    )
+  }
+
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -103,12 +116,15 @@ function AddProductFormPage() {
 
   return (
     <SignedIn>
-      <div className="min-h-screen bg-white text-[#141414] font-old px-4 py-10 sm:px-6 font-old">
+      <div
+        style={{ backgroundImage: `url(${bgImage})` }}
+        className="bg-cover bg-center bg-opacity-80% min-h-screen  px-4 sm:px-6 py-10 font-old text-[#141414]"
+      >
         <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-semibold mb-6">Add New Product</h1>
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 shadow-md p-6 rounded-lg border bg-white"
+            className="space-y-6 shadow-lg p-6 rounded-lg  bg-[#F5F5F5]"
           >
             <div className="flex flex-col">
               <label className="text-lg font-semibold mb-2">Name</label>
@@ -198,7 +214,7 @@ function AddProductFormPage() {
             </div>
 
             {(validationError || error) && (
-              <p className="font-bold text-red-500 text-sm">
+              <p className="font-bold text-[#832035] text-sm">
                 {validationError
                   ? validationError
                   : error?.message === 'Failed to fetch'
@@ -211,7 +227,7 @@ function AddProductFormPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors w-full sm:w-auto"
+                className="bg-[#351C24] hover:bg-[#502A36] text-white px-5 py-2 rounded hover:cursor-pointer transition-colors w-full sm:w-auto"
               >
                 Save Product
               </button>

@@ -245,7 +245,7 @@ export default function EditLogModal({
 
           {/* Errors */}
           {(validationError || mutation.error) && (
-            <p className="font-bold text-red-500 text-sm">
+            <p className="font-bold text-[#832035] text-md">
               {validationError
                 ? validationError
                 : mutation.error?.message === 'Failed to fetch'

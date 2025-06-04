@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Link, createFileRoute } from '@tanstack/react-router'
-
 import { useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
+import bgImage from '../../background.png'
 import type { Product } from '@/types'
 import { useGetAllLogs } from '@/hooks/log/useGetAllLogs'
 import LogCard from '@/components/LogCard'
@@ -49,12 +49,15 @@ function LogsPage() {
         )
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
+    <div
+      style={{ backgroundImage: `url(${bgImage})` }}
+      className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
+    >
       <div className="m-10">
         <h1 className="text-2xl font-semibold mb-2">Your Log History</h1>
 
         {!error && !isPending && sortedLogs?.length > 0 && (
-          <p className="mb-4 text-gray-700 text-sm">
+          <p className="mb-4 text-gray-900 text-sm">
             {viewMode === 'calendar'
               ? 'Click on a day on the calendar to see your logs.'
               : 'Viewing all logs.'}
@@ -83,7 +86,8 @@ function LogsPage() {
           <div className="mb-5 mt-4">
             <Link
               to="/logs/new"
-              className="bg-[#141414] text-white px-4 py-3 rounded hover:bg-gray-700 transition-colors duration-200"
+              className="bg-[#351C24]
+                    hover:bg-[#502A36] text-white px-4 py-3 rounded transition-colors duration-200"
             >
               + Add New Log
             </Link>
@@ -100,8 +104,8 @@ function LogsPage() {
           <>
             <div className=" flex flex-row text-sm mt-4 text-center mb-4">
               <button
-                className={`hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 px-2 py-1 rounded ${
-                  viewMode === 'list' ? 'bg-gray-200 ' : 'bg-transparent'
+                className={`hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 px-2 py-1 rounded ${
+                  viewMode === 'list' ? 'bg-gray-100 ' : 'bg-transparent'
                 }`}
                 onClick={() => setViewMode('list')}
               >
@@ -109,8 +113,8 @@ function LogsPage() {
               </button>
               <p className="text-xl font-bold">|</p>
               <button
-                className={`hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 px-2 py-1 rounded ${
-                  viewMode === 'calendar' ? 'bg-gray-200' : 'bg-transparent'
+                className={`hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 px-2 py-1 rounded ${
+                  viewMode === 'calendar' ? 'bg-gray-100' : 'bg-transparent'
                 }`}
                 onClick={() => setViewMode('calendar')}
               >
@@ -136,7 +140,7 @@ function LogsPage() {
                 {filteredLogs.length > 0 ? (
                   filteredLogs.map((log) => <LogCard key={log.id} {...log} />)
                 ) : (
-                  <p className="text-gray-500 text-center">
+                  <p className="text-gray-100 font-bold text-center">
                     No logs found for selected products.
                   </p>
                 )}

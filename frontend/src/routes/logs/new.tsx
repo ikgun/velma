@@ -2,8 +2,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import bgImage from '../../background.png'
 import type { FormEvent } from 'react'
 import type { Product } from '@/types'
+
 import { useCreateLog } from '@/hooks/log/useCreateLog'
 import { useGetAllProducts } from '@/hooks/product/useGetAllProducts'
 
@@ -102,20 +104,33 @@ function AddLogFormPage() {
     }
   }, [isSuccess, error])
 
-  if (!isLoaded)
-    return <div className="p-4 text-[#141414]">Loading user...</div>
-  if (!isSignedIn)
-    return <div className="p-4 text-[#141414]">Sign in to view this page</div>
+  if (!isLoaded) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    )
+  }
+  if (!isSignedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+        <p className="text-lg mb-4">Sign in to view this page</p>
+      </div>
+    )
+  }
 
   return (
     <SignedIn>
-      <div className="min-h-screen bg-white text-[#141414] px-4 sm:px-6 py-10 font-old">
+      <div
+        style={{ backgroundImage: `url(${bgImage})` }}
+        className="bg-cover bg-center bg-opacity-80% min-h-screen  px-4 sm:px-6 py-10 font-old text-[#141414]"
+      >
         <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-semibold mb-6">Add New Log Entry</h1>
 
           <form
             onSubmit={handleSubmit}
-            className="space-y-6 shadow-md p-4 sm:p-6 rounded-lg border"
+            className="space-y-6 shadow-lg p-4 sm:p-6 rounded-lg bg-[#F5F5F5]"
           >
             {/* Date & Time */}
             <div className="flex flex-col relative">
@@ -145,7 +160,10 @@ function AddLogFormPage() {
               </legend>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 {['Morning', 'Evening', 'Unspecified'].map((value) => (
-                  <label key={value} className="flex items-center gap-2 cursor-pointer">
+                  <label
+                    key={value}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
                     <input
                       type="radio"
                       name="routine"
@@ -205,7 +223,8 @@ function AddLogFormPage() {
                           className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
                           onClick={() => addProduct(product)}
                         >
-                          {product.name} – {product.brand || "Brand unspecified"}
+                          {product.name} –{' '}
+                          {product.brand || 'Brand unspecified'}
                         </li>
                       ))}
                     </ul>
@@ -228,7 +247,7 @@ function AddLogFormPage() {
 
             {/* Errors */}
             {(validationError || error) && (
-              <p className="font-bold text-red-500 text-sm">
+              <p className="font-bold text-[#832035] text-sm text-right">
                 {validationError ||
                   (error?.message === 'Failed to fetch'
                     ? 'Failed to fetch log form'
@@ -240,7 +259,7 @@ function AddLogFormPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors w-full sm:w-auto"
+                className="bg-[#351C24] hover:bg-[#502A36] text-white  px-5 py-2 rounded hover:cursor-pointer transition-colors w-full sm:w-auto"
               >
                 Save Log
               </button>

@@ -17,7 +17,7 @@ export default function ProductCard(data: Product) {
   }
 
   return (
-    <div className="mx-auto bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
+    <div className="mx-auto bg-[#F5F5F5] text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
       {/* Header */}
       <h2 className="text-lg sm:text-xl font-semibold mb-2">{data.name}</h2>
 
@@ -39,10 +39,10 @@ export default function ProductCard(data: Product) {
           params={{ productId: String(data.id) }}
           className="w-28
                     flex items-center justify-center
-                    text-[#1f1f1f]
-                    font-bold
-                    bg-[#EBDED9]
-                    hover:bg-[#CEAEA1]
+                    text-white
+                    
+                     bg-[#B2A095]
+                    hover:bg-[#C3B5AC]
                     py-2 px-4
                     rounded-md
                     transition

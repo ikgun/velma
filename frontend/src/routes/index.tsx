@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useUser } from '@clerk/clerk-react'
 import { useEffect } from 'react'
+import homeimg from '../homeimg.png' // adjust path if needed
+
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -25,15 +27,16 @@ function App() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
-      <div className="m-10">
-        <div className="flex items-center justify-center text-center min-h-[300px]">
-          <p className="text-lg">
-            You're viewing the unsigned version, please login to start using
-            Velma!
-          </p>
-        </div>
-      </div>
+  <div className="min-h-screen bg-[#FFFFFF] font-old text-[#141414]">
+    <div className="w-full">
+      <img
+        src={homeimg}
+        alt="Velma Home"
+        className="w-full h-[calc(100vh)] object-[11%_center] sm:object-[3%_center] xl:object-center xl:h-[calc(120vh)] object-cover"
+      />
     </div>
-  )
+    
+  </div>
+)
+
 }

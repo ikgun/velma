@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { SignedIn, useUser } from '@clerk/clerk-react'
+import bgImage from '../../background.png'
 import type { Product } from '@/types'
 import { useGetAllProducts } from '@/hooks/product/useGetAllProducts'
 import ProductCard from '@/components/ProductCard'
@@ -30,7 +31,10 @@ function ProductsPage() {
 
   return (
     <SignedIn>
-      <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
+      <div
+      style={{ backgroundImage: `url(${bgImage})` }}
+      className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
+    >
         <div className="m-10">
           <h1 className="text-2xl font-semibold mb-5">Your Products</h1>
 
@@ -56,7 +60,8 @@ function ProductsPage() {
             <div className="mb-5">
               <Link
                 to="/products/new"
-                className="bg-[#141414] text-white px-4 py-3 rounded hover:bg-gray-700 transition-colors duration-200"
+                className="bg-[#351C24]
+                    hover:bg-[#502A36] text-white px-4 py-3 rounded transition-colors duration-200"
               >
                 + Add New Product
               </Link>
