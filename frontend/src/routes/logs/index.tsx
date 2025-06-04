@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { enUS } from 'date-fns/locale'
+import { format, isSameDay } from 'date-fns'
 import { useUser } from '@clerk/clerk-react'
+import { useState } from 'react'
+import Calendar from 'react-calendar'
 import type { Log } from '@/types'
 import { useGetAllLogs } from '@/hooks/log/useGetAllLogs'
 import LogCard from '@/components/LogCard'
