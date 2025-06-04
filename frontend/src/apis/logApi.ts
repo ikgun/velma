@@ -1,7 +1,8 @@
 import type { Product } from '@/types'
 
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/logs`
+// const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/logs`
 
+const API_URL = 'http://localhost:8080/api/logs'
 
 // GET request to /api/logs
 export async function getAllLogs(token: string) {

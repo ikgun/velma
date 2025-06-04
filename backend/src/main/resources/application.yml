@@ -1,12 +1,12 @@
 spring:
   application:
     name: Velma
-#  config:
-#    import: "optional:file:.env"
+  config:
+    import: "optional:file:.env"
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/velmadb
+    username: velma
+    password: velma
   jpa:
     show-sql: true
     defer-datasource-initialization: true
@@ -23,7 +23,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${ISSUER_URI}
+          issuer-uri: https://right-pony-24.clerk.accounts.dev
 
 
 logging:

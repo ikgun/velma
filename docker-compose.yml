@@ -2,8 +2,10 @@ services:
   velma-postgres:
     image: 'postgres:15'
     container_name: 'velma-postgres'
-    env_file:
-      - ./backend/.env
+    environment:
+      - POSTGRES_USER=velma
+      - POSTGRES_PASSWORD=velma
+      - POSTGRES_DB=velmadb
     volumes:
       - ./data/pgdata:/var/lib/postgresql/data
     ports:
@@ -22,34 +24,41 @@ services:
       - velma-postgres
     env_file:
       - ./backend/.env
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     restart: on-failure
 
-  #  velma-frontend:
-  #    build:
-  #      context: ./frontend
-  #      dockerfile: Dockerfile
-  #    image: velma-frontend
-  #    container_name: velma-frontend
-  #    ports:
-  #      - "3000:3000"
-  #    volumes:
-  #      - ./frontend:/app
-  #      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
-  #    env_file:
-  #      - ./frontend/.env
-  #    restart: on-failure
+
 
   velma-frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      args:
-        VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY}
+#      args:
+#        VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY}
     image: velma-frontend
     container_name: velma-frontend
     ports:
-      - "3000:8080"  # Host:Container — expose NGINX port on 3000
-    env_file:
-      - frontend/.env
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Ensures node_modules isn't overwritten by bind mount
+#    env_file:
+#      - ./frontend/.env
+    command: npm run dev
+    restart: on-failure
+
+#  velma-frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#      args:
+#        VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY}
+#    image: velma-frontend
+#    container_name: velma-frontend
+#    ports:
+#      - "3000:8080"  # Host:Container — expose NGINX port on 3000
+#    env_file:
+#      - frontend/.env
 
 
