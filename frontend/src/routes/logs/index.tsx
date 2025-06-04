@@ -49,6 +49,13 @@ function LogsPage() {
       : false,
   )
 
+  function formatCustomDate(dateStr: string) {
+    const date = new Date(dateStr)
+    return format(date, "EEEE, do 'of' MMMM", { locale: enUS })
+  }
+
+  const d = selectedDate?.toDateString()
+
   return (
     <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
       <div className="m-10">
