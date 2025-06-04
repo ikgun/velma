@@ -20,7 +20,7 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
       <div className="flex gap-2 w-90 sm:w-100 h-10 mb-6">
         <Link
           to="/products/new"
-          className="bg-[#141414] text-sm sm:text-md text-white px-4 py-1 items-center justify-center flex rounded hover:bg-gray-700 transition-colors duration-200 w-full text-center"
+          className="bg-[#351C24] text-sm sm:text-md text-white px-4 py-1 items-center justify-center flex rounded hover:bg-[#502A36] transition-colors duration-200 w-full text-center"
         >
           + Add New Product
         </Link>
@@ -28,7 +28,7 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
         
           <Link
             to="/products"
-            className="flex items-center text-left justify-left px-4 py-1 rounded text-xs sm:text-sm font-medium text-[#141414] hover:bg-gray-200 transition-colors duration-200 block w-full"
+            className="flex items-center text-left justify-left px-4 py-1 rounded text-xs sm:text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
           >
             See all of your products
             <svg
