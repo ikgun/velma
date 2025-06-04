@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import type { FormEvent } from 'react'
