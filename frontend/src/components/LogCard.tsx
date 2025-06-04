@@ -24,7 +24,7 @@ export default function LogCard(data: Log) {
   }
 
   return (
-    <div className="bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
+    <div className="bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full mx-auto transition duration-300 hover:shadow-lg">
       {/* Header */}
       <div className="mb-2">
         <h2 className="text-lg sm:text-xl font-semibold">Log Entry</h2>

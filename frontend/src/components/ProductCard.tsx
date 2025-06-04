@@ -17,7 +17,7 @@ export default function ProductCard(data: Product) {
   }
 
   return (
-    <div className="bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
+    <div className="mx-auto bg-white text-black shadow-md rounded-xl p-4 sm:p-6 w-full transition duration-300 hover:shadow-lg">
       {/* Header */}
       <h2 className="text-lg sm:text-xl font-semibold mb-2">{data.name}</h2>
 

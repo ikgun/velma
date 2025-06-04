@@ -170,18 +170,18 @@ export default function EditProductModal({
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end sm:gap-4 gap-2 mt-4">
             <button
-              type="button"
-              onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
               disabled={mutation.isPending}
               className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Save
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
+            >
+              Cancel
             </button>
           </div>
         </form>

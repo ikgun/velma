@@ -119,9 +119,7 @@ function AddLogFormPage() {
           >
             {/* Date & Time */}
             <div className="flex flex-col relative">
-              <label className="text-lg font-semibold mb-2">
-                Date & Time
-              </label>
+              <label className="text-lg font-semibold mb-2">Date & Time</label>
               <input
                 type="datetime-local"
                 value={dateTime}
@@ -147,7 +145,7 @@ function AddLogFormPage() {
               </legend>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 {['Morning', 'Evening', 'Unspecified'].map((value) => (
-                  <label key={value} className="flex items-center gap-2">
+                  <label key={value} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
                       name="routine"
@@ -207,7 +205,7 @@ function AddLogFormPage() {
                           className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
                           onClick={() => addProduct(product)}
                         >
-                          {product.name} – {product.brand}
+                          {product.name} – {product.brand || "Brand unspecified"}
                         </li>
                       ))}
                     </ul>

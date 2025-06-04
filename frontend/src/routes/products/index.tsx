@@ -45,7 +45,7 @@ function ProductsPage() {
             <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
               <p className="text-lg">
                 {error.message === 'Failed to fetch'
-                  ? 'Failed to fetch products'
+                  ? 'Failed to load products'
                   : error.message}
               </p>
             </div>
@@ -65,7 +65,7 @@ function ProductsPage() {
 
           {/* Empty state message */}
           {!error && !isPending && data?.length === 0 && (
-            <p className="text-gray-500 mt-5">
+            <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-500">
               You have no products yet. Add some to track your skincare items.
             </p>
           )}
