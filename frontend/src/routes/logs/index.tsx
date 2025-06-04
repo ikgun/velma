@@ -3,10 +3,11 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 
 import { useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
-import Calendar from 'react-calendar'
-import type { Log } from '@/types'
+import type { Product } from '@/types'
 import { useGetAllLogs } from '@/hooks/log/useGetAllLogs'
 import LogCard from '@/components/LogCard'
+import ProductFilter from '@/components/ProductFilter'
+import CalendarComp from '@/components/CalendarComp'
 
 export const Route = createFileRoute('/logs/')({
   component: LogsPage,
@@ -16,6 +17,7 @@ function LogsPage() {
   const { isSignedIn, isLoaded } = useUser()
   const { data, isPending, error } = useGetAllLogs()
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
+  const [selectedProducts, setSelectedProducts] = useState<Array<Product>>([])
 
   if (!isLoaded) {
     return (
@@ -45,15 +47,6 @@ function LogsPage() {
             log.productsUsed.some((p: Product) => p.id === sp.id),
           ),
         )
-      : false,
-  )
-
-  function formatCustomDate(dateStr: string) {
-    const date = new Date(dateStr)
-    return format(date, "EEEE, do 'of' MMMM", { locale: enUS })
-  }
-
-  const d = selectedDate?.toDateString()
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
@@ -184,22 +177,31 @@ function LogsPage() {
               </button>
             </div>
 
-            {hasClicked &&
-              (logsForSelectedDay && logsForSelectedDay.length > 0 ? (
-                <div className="mt-6 space-y-4">
-                  <h2 className="text-lg font-semibold">
-                    Logs on {formatCustomDate(d)}
-                  </h2>
-                  {logsForSelectedDay.map((log: Log) => (
-                    <LogCard key={log.id} {...log} />
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 mt-6 text-center">
-                  No logs for this day.
-                </p>
-              ))}
-          </div>
+            {viewMode === 'calendar' ? (
+              <div>
+                {/* Your existing Calendar code here */}
+                <CalendarComp
+                  selectedProducts={selectedProducts}
+                  setSelectedProducts={setSelectedProducts}
+                />
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <ProductFilter
+                  selectedProducts={selectedProducts}
+                  setSelectedProducts={setSelectedProducts}
+                />
+
+                {filteredLogs.length > 0 ? (
+                  filteredLogs.map((log) => <LogCard key={log.id} {...log} />)
+                ) : (
+                  <p className="text-gray-500 text-center">
+                    No logs found for selected products.
+                  </p>
+                )}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
