@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { enUS } from 'date-fns/locale'
-import { format, isSameDay } from 'date-fns'
+
 import { useUser } from '@clerk/clerk-react'
 import { useState } from 'react'
 import Calendar from 'react-calendar'
@@ -16,8 +15,6 @@ export const Route = createFileRoute('/logs/')({
 function LogsPage() {
   const { isSignedIn, isLoaded } = useUser()
   const { data, isPending, error } = useGetAllLogs()
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [hasClicked, setHasClicked] = useState(false)
   const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list')
 
   if (!isLoaded) {
@@ -40,12 +37,13 @@ function LogsPage() {
     (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime(),
   )
 
-  // Filter logs by selected day
-  const logsForSelectedDay = sortedLogs?.filter((log: Log) =>
-    selectedDate
-      ? isSameDay(
-          new Date(log.dateTime).setHours(0, 0, 0, 0),
-          new Date(selectedDate).setHours(0, 0, 0, 0),
+  const filteredLogs =
+    selectedProducts.length === 0
+      ? sortedLogs
+      : sortedLogs.filter((log) =>
+          selectedProducts.every((sp) =>
+            log.productsUsed.some((p: Product) => p.id === sp.id),
+          ),
         )
       : false,
   )
