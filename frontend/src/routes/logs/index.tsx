@@ -117,7 +117,7 @@ function LogsPage() {
                 setHasClicked(true)
               }}
               value={selectedDate}
-              navigationLabel={({ date, label, locale, view }) => {
+              navigationLabel={({ date, locale }) => {
                 return (
                   <div className="text-lg sm:text-xl font-bold uppercase mt-5 mb-6">
                     {date.toLocaleDateString(locale, {
