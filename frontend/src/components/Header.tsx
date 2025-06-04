@@ -117,12 +117,19 @@ export default function Header() {
                 </label>
               </div>
               <div className="drawer-side z-50">
-                <label htmlFor="mobile-drawer" className="drawer-overlay"></label>
+                <label
+                  htmlFor="mobile-drawer"
+                  className="drawer-overlay"
+                ></label>
                 <ul className="menu items-center justify-center text-lg w-40 min-h-full bg-[#1f1f1f] text-white space-y-2">
                   <li>
                     <Link
                       to="/dashboard"
-                      className={location === '/dashboard' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                      className={
+                        location === '/dashboard'
+                          ? 'bg-[#333333] rounded px-2 py-1'
+                          : ''
+                      }
                     >
                       Dashboard
                     </Link>
@@ -130,7 +137,11 @@ export default function Header() {
                   <li>
                     <Link
                       to="/logs"
-                      className={location === '/logs' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                      className={
+                        location === '/logs'
+                          ? 'bg-[#333333] rounded px-2 py-1'
+                          : ''
+                      }
                     >
                       Logs
                     </Link>
@@ -138,7 +149,11 @@ export default function Header() {
                   <li>
                     <Link
                       to="/products"
-                      className={location === '/products' ? 'bg-[#333333] rounded px-2 py-1' : ''}
+                      className={
+                        location === '/products'
+                          ? 'bg-[#333333] rounded px-2 py-1'
+                          : ''
+                      }
                     >
                       Products
                     </Link>
