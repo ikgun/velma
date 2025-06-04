@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SignedIn, useUser } from '@clerk/clerk-react'
 import { toast } from 'react-toastify'
-import type { FormEvent } from 'react'
+import type { FormEvent, Key } from 'react'
 import { useCreateProduct } from '@/hooks/product/useCreateProduct'
 
 export const Route = createFileRoute('/products/new')({
@@ -17,6 +17,62 @@ function AddProductFormPage() {
   const [expirationDate, setExpirationDate] = useState('')
   const { mutate, isSuccess, error, isPending } = useCreateProduct()
   const [validationError, setValidationError] = useState('')
+
+  const [types, setTypes] = useState<Array<string>>([
+    'Cleanser',
+    'Serum',
+    'Moisturizer',
+  ])
+
+  const [filteredTypes, setFilteredTypes] = useState<Array<string>>([])
+  const [typeSearch, setTypeSearch] = useState('')
+  const [dropdownVisible, setDropdownVisible] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Filter types on search term
+  useEffect(() => {
+    if (!dropdownVisible) {
+      setFilteredTypes([])
+      return
+    }
+
+    if (typeSearch.trim() === '') {
+      setFilteredTypes(types)
+    } else {
+      const filtered = types.filter((t: string) =>
+        t.toLowerCase().startsWith(typeSearch.toLowerCase()),
+      )
+      setFilteredTypes(filtered)
+    }
+  }, [typeSearch, types, dropdownVisible])
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        inputRef.current !== event.target
+      ) {
+        setDropdownVisible(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  const addType = (t: string) => {
+    setType(t)
+    setTypeSearch(t)
+    setDropdownVisible(false)
+  }
+
+  const addTypeToArr = (t: string) => {
+    if (!types.find((t1) => t1.toLowerCase() === t.toLowerCase())) {
+      setTypes([...types, t])
+    }
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -77,15 +133,46 @@ function AddProductFormPage() {
               />
             </div>
 
-            <div className="flex flex-col">
-              <label className="text-lg font-semibold mb-2">Type</label>
-              <input
-                type="text"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-                placeholder="Write type"
-                className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
-              />
+            {/* Types Used */}
+            <div>
+              <h2 className="text-lg font-semibold mb-2">Type</h2>
+              <div className="relative" ref={dropdownRef}>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={typeSearch}
+                  onFocus={() => setDropdownVisible(true)}
+                  onChange={(e) => setTypeSearch(e.target.value)}
+                  placeholder="Write to search and add types"
+                  className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
+                  autoComplete="off"
+                />
+                {dropdownVisible && (
+                  <ul className="absolute z-10 bg-white border rounded shadow max-h-48 overflow-y-auto w-full mt-1">
+                    {filteredTypes.length > 0 ? (
+                      filteredTypes.map((t1, index: Key) => (
+                        <li
+                          key={index}
+                          className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                          onClick={() => addType(t1)}
+                        >
+                          {t1}
+                        </li>
+                      ))
+                    ) : (
+                      <li
+                        className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                        onClick={() => {
+                          addTypeToArr(typeSearch)
+                          addType(typeSearch)
+                        }}
+                      >
+                        + Use “{typeSearch}”
+                      </li>
+                    )}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-col relative">
