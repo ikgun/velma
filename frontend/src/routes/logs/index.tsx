@@ -16,6 +16,8 @@ export const Route = createFileRoute('/logs/')({
 function LogsPage() {
   const { isSignedIn, isLoaded } = useUser()
   const { data, isPending, error } = useGetAllLogs()
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [hasClicked, setHasClicked] = useState(false)
 
   if (!isLoaded) {
     return (
