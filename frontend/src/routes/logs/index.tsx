@@ -90,22 +90,89 @@ function LogsPage() {
           </div>
         )}
 
-        {!error && data && data.length === 0 ? (
+        {!error && sortedLogs && sortedLogs.length === 0 ? (
           <p className="text-gray-500 mt-5">
             You have no logs yet. Start logging to track your progress.
           </p>
         ) : (
-          <div className="space-y-4">
-            {data?.map((log: Log) => (
-              <LogCard
-                key={log.id}
-                id={log.id}
-                dateTime={log.dateTime}
-                notes={log.notes}
-                productsUsed={log.productsUsed}
-                routineType={log.routineType}
-              />
-            ))}
+          <div className="overflow-x-auto">
+            <Calendar
+              view="month"
+              maxDetail="month"
+              minDetail="month"
+              prev2Label={null}
+              next2Label={null}
+              prevLabel={
+                <span className="p-1 rounded-2xl hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 text-xl font-bold mr-3">
+                  {'←'}
+                </span>
+              }
+              nextLabel={
+                <span className="p-1 rounded-2xl hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 text-xl font-bold ml-3 ">
+                  {'→'}
+                </span>
+              }
+              onChange={(date) => {
+                setSelectedDate(date as Date)
+                setHasClicked(true)
+              }}
+              value={selectedDate}
+              navigationLabel={({ date, label, locale, view }) => {
+                return (
+                  <div className="text-lg sm:text-xl font-bold uppercase mt-5 mb-6">
+                    {date.toLocaleDateString(locale, {
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </div>
+                )
+              }}
+              tileClassName={({ date, view }) => {
+                if (view !== 'month') return ''
+                const hasLog = sortedLogs?.some((log: Log) =>
+                  isSameDay(
+                    new Date(log.dateTime).setHours(0, 0, 0, 0),
+                    new Date(date).setHours(0, 0, 0, 0),
+                  ),
+                )
+                return `hover:cursor-pointer hover:bg-gray-200 border transition-colors duration-200 border-black h-16 w-16 sm:h-20 sm:w-20
+ flex items-center justify-center ${hasLog ? 'relative' : ''}`
+              }}
+              tileContent={({ date, view }) => {
+                if (view !== 'month') return null
+
+                const logsOnDate = data?.filter((log: Log) =>
+                  isSameDay(new Date(log.dateTime), date),
+                )
+
+                if (!logsOnDate || logsOnDate.length === 0) return null
+
+                return (
+                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-[#E59E8B] text-white text-xs text-center p-1 rounded-2xl">
+                      {logsOnDate.length}
+                    </span>
+                  </div>
+                )
+              }}
+              className="my-5 text-center"
+            />
+
+            {hasClicked &&
+              (logsForSelectedDay && logsForSelectedDay.length > 0 ? (
+                <div className="mt-6 space-y-4">
+                  <h2 className="text-lg font-semibold">
+                    Logs on {formatCustomDate(d)}
+                  </h2>
+                  {logsForSelectedDay.map((log: Log) => (
+                    <LogCard key={log.id} {...log} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 mt-6 text-center">
+                  No logs for this day.
+                </p>
+              ))}
           </div>
         )}
       </div>
