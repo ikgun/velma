@@ -38,6 +38,17 @@ function LogsPage() {
   const sortedLogs = [...(data || [])].sort(
     (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime(),
   )
+
+  // Filter logs by selected day
+  const logsForSelectedDay = sortedLogs?.filter((log: Log) =>
+    selectedDate
+      ? isSameDay(
+          new Date(log.dateTime).setHours(0, 0, 0, 0),
+          new Date(selectedDate).setHours(0, 0, 0, 0),
+        )
+      : false,
+  )
+
   return (
     <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
       <div className="m-10">
