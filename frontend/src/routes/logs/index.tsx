@@ -35,6 +35,9 @@ function LogsPage() {
     )
   }
 
+  const sortedLogs = [...(data || [])].sort(
+    (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime(),
+  )
   return (
     <div className="min-h-screen flex flex-col bg-[#FFFFFF] font-old text-[#141414]">
       <div className="m-10">
