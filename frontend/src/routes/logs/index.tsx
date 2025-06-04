@@ -72,7 +72,7 @@ function LogsPage() {
           <div className="flex flex-col items-center justify-center min-h-[300px] text-center">
             <p className="text-lg">
               {error.message === 'Failed to fetch'
-                ? 'Failed to fetch logs'
+                ? 'Failed to load logs'
                 : error.message}
             </p>
           </div>
@@ -80,7 +80,7 @@ function LogsPage() {
 
         {/* Show Add button only when there's no error */}
         {!error && !isPending && (
-          <div className="mb-5">
+          <div className="mb-5 mt-4">
             <Link
               to="/logs/new"
               className="bg-[#141414] text-white px-4 py-3 rounded hover:bg-gray-700 transition-colors duration-200"
@@ -90,73 +90,14 @@ function LogsPage() {
           </div>
         )}
 
-        {!error && sortedLogs && sortedLogs.length === 0 ? (
-          <p className="text-gray-500 mt-5">
+        {!error && !isPending && sortedLogs?.length === 0 && (
+          <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-500">
             You have no logs yet. Start logging to track your progress.
           </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <Calendar
-              view="month"
-              maxDetail="month"
-              minDetail="month"
-              prev2Label={null}
-              next2Label={null}
-              prevLabel={
-                <span className="p-1 rounded-2xl hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 text-xl font-bold mr-3">
-                  {'←'}
-                </span>
-              }
-              nextLabel={
-                <span className="p-1 rounded-2xl hover:cursor-pointer hover:bg-gray-200 transition-colors duration-200 text-xl font-bold ml-3 ">
-                  {'→'}
-                </span>
-              }
-              onChange={(date) => {
-                setSelectedDate(date as Date)
-                setHasClicked(true)
-              }}
-              value={selectedDate}
-              navigationLabel={({ date, locale }) => {
-                return (
-                  <div className="text-lg sm:text-xl font-bold uppercase mt-5 mb-6">
-                    {date.toLocaleDateString(locale, {
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </div>
-                )
-              }}
-              tileClassName={({ date, view }) => {
-                if (view !== 'month') return ''
-                const hasLog = sortedLogs?.some((log: Log) =>
-                  isSameDay(
-                    new Date(log.dateTime).setHours(0, 0, 0, 0),
-                    new Date(date).setHours(0, 0, 0, 0),
-                  ),
-                )
-                return `hover:cursor-pointer hover:bg-gray-200 border transition-colors duration-200 border-black h-16 w-16 sm:h-20 sm:w-20
- flex items-center justify-center ${hasLog ? 'relative' : ''}`
-              }}
-              tileContent={({ date, view }) => {
-                if (view !== 'month') return null
+        )}
 
-                const logsOnDate = data?.filter((log: Log) =>
-                  isSameDay(new Date(log.dateTime), date),
-                )
-
-                if (!logsOnDate || logsOnDate.length === 0) return null
-
-                return (
-                  <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-[#E59E8B] text-white text-xs text-center p-1 rounded-2xl">
-                      {logsOnDate.length}
-                    </span>
-                  </div>
-                )
-              }}
-              className="my-5 text-center"
-            />
+        {!error && !isPending && sortedLogs?.length > 0 && (
+          <>
             <div className=" flex flex-row text-sm mt-4 text-center mb-4">
               <button
                 className={`hover:cursor-pointer hover:bg-gray-100 transition-colors duration-200 px-2 py-1 rounded ${
