@@ -54,10 +54,10 @@ function LogsPage() {
       className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
     >
       <div className="m-10">
-        <h1 className="text-2xl font-semibold mb-2">Your Log History</h1>
+        <h1 className="text-shadow-lg/15 text-3xl font-semibold mb-2">Your Log History</h1>
 
         {!error && !isPending && sortedLogs?.length > 0 && (
-          <p className="mb-4 text-gray-900 text-sm">
+          <p className="text-shadow-lg/10 mb-4 text-gray-900 text-sm">
             {viewMode === 'calendar'
               ? 'Click on a day on the calendar to see your logs.'
               : 'Viewing all logs.'}
@@ -95,7 +95,7 @@ function LogsPage() {
         )}
 
         {!error && !isPending && sortedLogs?.length === 0 && (
-          <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-500">
+          <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-900">
             You have no logs yet. Start logging to track your progress.
           </p>
         )}

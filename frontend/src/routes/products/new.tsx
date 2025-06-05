@@ -82,6 +82,7 @@ function AddProductFormPage() {
       setName('')
       setBrand('')
       setType('')
+      setTypeSearch('')
       setExpirationDate('')
     }
   }, [isSuccess])

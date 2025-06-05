@@ -36,7 +36,7 @@ function ProductsPage() {
       className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
     >
         <div className="m-10">
-          <h1 className="text-2xl font-semibold mb-5">Your Products</h1>
+          <h1 className="text-shadow-lg/15 text-3xl font-semibold mb-5">Your Products</h1>
 
           {isPending && (
             <div className="flex gap-2 items-center justify-center text-center min-h-[300px]">
@@ -70,7 +70,7 @@ function ProductsPage() {
 
           {/* Empty state message */}
           {!error && !isPending && data?.length === 0 && (
-            <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-500">
+            <p className="text-lg flex items-center justify-center text-center min-h-[300px] text-gray-900">
               You have no products yet. Add some to track your skincare items.
             </p>
           )}

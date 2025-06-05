@@ -142,7 +142,7 @@ export default function EditLogModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl mx-auto text-[#141414] font-old">
+      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl sm:max-w-xl mx-auto text-[#141414] font-old">
         <button
           onClick={handleCancel}
           className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl font-bold cursor-pointer"
@@ -257,18 +257,18 @@ export default function EditLogModal({
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end sm:gap-4 gap-2 mt-4">
             <button
-              type="submit"
-              disabled={mutation.isPending}
-              className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Save
-            </button>
-            <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
+              className="bg-gray-200 hover:bg-gray-300 hover:cursor-pointer text-black  py-2 px-4 rounded transition"
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={mutation.isPending}
+              className="bg-[#351C24] hover:bg-[#502A36] text-white  px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Save
             </button>
           </div>
         </form>

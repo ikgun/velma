@@ -13,7 +13,7 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
 
   return (
     <div className="py-5">
-      <h1 className="text-xl sm:text-2xl font-semibold mb-4">
+      <h1 className="text-shadow-lg/10 text-xl sm:text-2xl font-semibold mb-4">
         Your latest added products
       </h1>
 
@@ -28,7 +28,7 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
         
           <Link
             to="/products"
-            className="flex items-center text-left justify-left px-4 py-1 rounded text-xs sm:text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
+            className="text-shadow-lg/20 flex items-center text-left justify-left px-4 py-1 rounded text-xs sm:text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
           >
             See all of your products
             <svg
@@ -72,7 +72,7 @@ export default function ProductsSection({ products }: ProductsSectionProps) {
           </div>
         </div>
       ) : (
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-900 mb-4">
           You haven’t added any products yet. Start adding your skincare products!
         </p>
       )}

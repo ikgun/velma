@@ -72,7 +72,7 @@ export default function ProductFilter({
   return (
     <div className="pt-4 ">
       {/* Product Filter Input */}
-      <label className="block font-semibold">Filter by product</label>
+      <label className="text-shadow-lg/10 block font-semibold">Filter by product</label>
       <div className="relative mb-6">
         <div className="flex flex-wrap gap-2 mb-2">
           {selectedProducts.map((product) => (

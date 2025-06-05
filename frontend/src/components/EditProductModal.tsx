@@ -79,7 +79,7 @@ export default function EditProductModal({
 
   return (
     <dialog ref={dialogRef} className="modal">
-      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl mx-auto text-[#141414] font-old">
+      <div className="modal-box max-h-[90vh] bg-white rounded-lg shadow-lg relative px-6 py-8 max-w-3xl sm:max-w-xl mx-auto text-[#141414] font-old">
         {/* Close Button */}
         <button
           onClick={handleCancel}
@@ -100,7 +100,7 @@ export default function EditProductModal({
             <label className="text-lg font-semibold mb-2">Name</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none w-full"
               placeholder="Name"
               value={newName}
               onChange={(e) => setNewname(e.target.value)}
@@ -113,7 +113,7 @@ export default function EditProductModal({
             <label className="text-lg font-semibold mb-2">Brand</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none w-full"
               placeholder="Brand"
               value={newBrand}
               onChange={(e) => setNewBrand(e.target.value)}
@@ -125,7 +125,7 @@ export default function EditProductModal({
             <label className="text-lg font-semibold mb-2">Type</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none w-full"
               placeholder="Type"
               value={newType}
               onChange={(e) => setNewType(e.target.value)}
@@ -139,7 +139,7 @@ export default function EditProductModal({
             </label>
             <input
               type="date"
-              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-600 w-full"
+              className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black resize-none w-full"
               value={newExpirationDate}
               onChange={(e) => setNewExpirationDate(e.target.value)}
             />
@@ -170,18 +170,18 @@ export default function EditProductModal({
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-end sm:gap-4 gap-2 mt-4">
             <button
-              type="submit"
-              disabled={mutation.isPending}
-              className="bg-[#141414] text-white font-semibold px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Save
-            </button>
-            <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-300 hover:bg-gray-400 hover:cursor-pointer text-black font-semibold py-2 px-4 rounded transition"
+              className="bg-gray-200 hover:bg-gray-300 hover:cursor-pointer text-black  py-2 px-4 rounded transition"
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={mutation.isPending}
+              className="bg-[#351C24] hover:bg-[#502A36] text-white  px-5 py-2 rounded hover:bg-[#5c5c5c] hover:cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Save
             </button>
           </div>
         </form>

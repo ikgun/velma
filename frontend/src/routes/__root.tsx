@@ -22,7 +22,7 @@ function Root() {
         theme="dark"
         aria-label="Notifications"
         className="!text-sm sm:!text-base"
-        style={{ height: '95px' }}
+        style={{ height: '100px' }}
       />
 
       <ClerkProvider>

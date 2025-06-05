@@ -46,10 +46,10 @@ function Dashboard() {
       style={{ backgroundImage: `url(${bgImage})` }}
       className="bg-cover bg-center bg-opacity-80% min-h-screen flex flex-col font-old text-[#141414]"
     >
-      <div className="px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-10">
+      <div className=" px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-10">
         {/* Greeting */}
-        <p className="text-5xl mt-5 mb-3 sm:mt-0 sm:mb-0">
-          Hello <span className="font-bold">{user.firstName?.trim()}</span>,
+        <p className="text-shadow-lg/15 text-5xl mt-5 mb-3 sm:mt-0 sm:mb-0">
+          Hello <span className=" font-bold">{user.firstName?.trim()}</span>,
         </p>
 
         {/* Logs Section */}

@@ -14,7 +14,7 @@ export default function LogsSection({ logs }: LogsSectionProps) {
 
   return (
     <div className="py-5">
-      <h1 className="text-xl sm:text-2xl font-semibold mb-4">
+      <h1 className="text-shadow-lg/10 text-xl sm:text-2xl font-semibold mb-4">
         Here are your latest skincare logs
       </h1>
 
@@ -29,7 +29,7 @@ export default function LogsSection({ logs }: LogsSectionProps) {
         
           <Link
             to="/logs"
-            className="flex items-center justify-left px-4 py-2 rounded text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
+            className="text-shadow-lg/20 flex items-center justify-left px-4 py-2 rounded text-sm font-medium text-[#141414] hover:bg-gray-100 transition-colors duration-200 block w-full"
           >
             See all of your logs
             <svg
@@ -58,7 +58,7 @@ export default function LogsSection({ logs }: LogsSectionProps) {
           ))}
         </div>
       ) : (
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-900 mb-4">
           You haven’t added any logs yet. Start tracking your skincare journey!
         </p>
       )}

@@ -114,7 +114,7 @@ export default function CalendarComp({
         />
 
         {logsForSelectedDay && logsForSelectedDay.length > 0 ? (
-          <div className="mt-6 sm:mt-20 space-y-4 sm:w-150">
+          <div className=" sm:mt-20 space-y-4 sm:w-150">
             <h2 className="text-lg font-semibold">
               Logs on {formatCustomDate(d)}
             </h2>
