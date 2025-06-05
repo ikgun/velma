@@ -27,8 +27,8 @@ function AddLogFormPage() {
   const [dropdownVisible, setDropdownVisible] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const [noMatchMessage, setNoMatchMessage] = useState('')
 
-  // Filter products on search term
   useEffect(() => {
     if (!dropdownVisible) {
       setFilteredProducts([])
@@ -45,7 +45,6 @@ function AddLogFormPage() {
     }
   }, [productSearch, products, dropdownVisible])
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -54,11 +53,20 @@ function AddLogFormPage() {
         inputRef.current !== event.target
       ) {
         setDropdownVisible(false)
+
+        const isMatch = products.some((p: Product) =>
+          p.name.toLowerCase().startsWith(productSearch.toLowerCase()),
+        )
+
+        if (productSearch && !isMatch) {
+          setNoMatchMessage('No product found. Try creating it first!')
+        }
       }
     }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  }, [productSearch, products])
 
   const addProduct = (product: Product) => {
     if (!productsUsed.find((p) => p.id === product.id)) {
@@ -66,6 +74,7 @@ function AddLogFormPage() {
     }
     setProductSearch('')
     setDropdownVisible(false)
+    setNoMatchMessage('')
   }
 
   const removeProduct = (productId: string) => {
@@ -86,10 +95,15 @@ function AddLogFormPage() {
       return
     }
 
+    if (noMatchMessage) {
+      toast.error('Please enter a valid product before saving.')
+      
+      return
+    }
+
     mutate({ dateTime, routineType, productsUsed, notes })
   }
 
-  // Effect to react to mutation success or error
   useEffect(() => {
     if (isSuccess) {
       toast.success('New log created successfully!')
@@ -97,6 +111,7 @@ function AddLogFormPage() {
       setRoutineType('')
       setProductsUsed([])
       setNotes('')
+      setProductSearch('')
       setValidationError('')
     }
     if (error) {
@@ -106,14 +121,15 @@ function AddLogFormPage() {
 
   if (!isLoaded) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+      <div className="flex flex-col items-center justify-center h-screen bg-white font-old text-[#141414] px-4 text-center">
         <span className="loading loading-dots loading-xl"></span>
       </div>
     )
   }
+
   if (!isSignedIn) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen  bg-[#FFFFFF] font-old text-[#141414] px-4 text-center">
+      <div className="flex flex-col items-center justify-center h-screen bg-white font-old text-[#141414] px-4 text-center">
         <p className="text-lg mb-4">Sign in to view this page</p>
       </div>
     )
@@ -123,9 +139,9 @@ function AddLogFormPage() {
     <SignedIn>
       <div
         style={{ backgroundImage: `url(${bgImage})` }}
-        className="bg-cover bg-center bg-opacity-80% min-h-screen  px-4 sm:px-6 py-10 font-old text-[#141414]"
+        className="bg-cover bg-center min-h-screen px-4 sm:px-6 py-10 font-old text-[#141414]"
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl font-semibold mb-6">Add New Log Entry</h1>
 
           <form
@@ -143,7 +159,7 @@ function AddLogFormPage() {
                 className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
               />
               <svg
-                className="absolute right-3 top-11.5  w-5 h-5 text-gray-400 pointer-events-none"
+                className="absolute right-3 top-11.5 w-5 h-5 text-gray-400 pointer-events-none"
                 fill="none"
                 stroke="black"
                 strokeWidth="2"
@@ -210,24 +226,40 @@ function AddLogFormPage() {
                     type="text"
                     value={productSearch}
                     onFocus={() => setDropdownVisible(true)}
-                    onChange={(e) => setProductSearch(e.target.value)}
+                    onChange={(e) => {
+                      setProductSearch(e.target.value)
+                      setNoMatchMessage('')
+                    }}
                     placeholder="Type to search and add products"
                     className="border rounded px-3 py-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black w-full"
                     autoComplete="off"
                   />
-                  {dropdownVisible && filteredProducts.length > 0 && (
-                    <ul className="absolute z-10 bg-white border rounded shadow max-h-48 overflow-y-auto w-full mt-1">
-                      {filteredProducts.map((product) => (
-                        <li
-                          key={product.id}
-                          className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                          onClick={() => addProduct(product)}
-                        >
-                          {product.name} –{' '}
-                          {product.brand || 'Brand unspecified'}
-                        </li>
-                      ))}
-                    </ul>
+                  {noMatchMessage && (
+                    <p className="text-sm font-bold text-[#832035] text-sm mt-1">
+                      {noMatchMessage}
+                    </p>
+                  )}
+                  {dropdownVisible && (
+                    <>
+                      {filteredProducts.length > 0 ? (
+                        <ul className="absolute z-10 bg-white border rounded shadow max-h-48 overflow-y-auto w-full mt-1">
+                          {filteredProducts.map((product) => (
+                            <li
+                              key={product.id}
+                              className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                              onClick={() => addProduct(product)}
+                            >
+                              {product.name} –{' '}
+                              {product.brand || 'Brand unspecified'}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="absolute z-10 bg-white border rounded shadow w-full mt-1 px-3 py-2 text-gray-500">
+                          No matching product found.
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               )}
@@ -259,7 +291,7 @@ function AddLogFormPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="bg-[#351C24] hover:bg-[#502A36] text-white  px-5 py-2 rounded hover:cursor-pointer transition-colors w-full sm:w-auto"
+                className="bg-[#351C24] hover:bg-[#502A36] text-white px-5 py-2 rounded hover:cursor-pointer transition-colors w-full sm:w-auto"
               >
                 Save Log
               </button>

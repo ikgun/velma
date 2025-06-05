@@ -48,7 +48,7 @@ function Dashboard() {
     >
       <div className=" px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-10">
         {/* Greeting */}
-        <p className="text-shadow-lg/15 text-5xl mt-5 mb-3 sm:mt-0 sm:mb-0">
+        <p className="text-shadow-lg/10 text-5xl mt-5 mb-3 sm:mt-0 sm:mb-0">
           Hello <span className=" font-bold">{user.firstName?.trim()}</span>,
         </p>
 

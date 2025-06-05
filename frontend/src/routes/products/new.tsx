@@ -121,7 +121,7 @@ function AddProductFormPage() {
         style={{ backgroundImage: `url(${bgImage})` }}
         className="bg-cover bg-center bg-opacity-80% min-h-screen  px-4 sm:px-6 py-10 font-old text-[#141414]"
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl font-semibold mb-6">Add New Product</h1>
           <form
             onSubmit={handleSubmit}

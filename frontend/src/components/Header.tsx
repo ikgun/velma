@@ -12,13 +12,13 @@ export default function Header() {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center justify-center space-x-2 hover:bg-[#333333] px-2 py-1 rounded"
+          className="flex items-center justify-center space-x-2 hover:bg-[#333333] px-2 py-1 rounded "
         >
           <svg
             fill="currentColor"
             viewBox="0 0 512 512"
             xmlns="http://www.w3.org/2000/svg"
-            className="mr-1 w-6 h-6"
+            className="mr-1 w-6 h-6 mb-1"
           >
             <polygon points="396.31 32 264 32 348.19 144.26 396.31 32" />
             <polygon points="115.69 32 163.81 144.26 248 32 115.69 32" />
